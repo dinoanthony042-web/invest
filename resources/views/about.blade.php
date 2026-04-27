@@ -39,7 +39,7 @@
     <div class="max-w-5xl mx-auto px-6 text-center">
         
         <h1 class="text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight mb-6">Professional digital asset investing built for trusted outcomes.</h1>
-        <p class="mx-auto max-w-3xl text-lg text-gray-400 leading-relaxed">HarbourCrest Wealth brings structure, discipline, and transparency to digital investing. We design every service around security, governance, and measurable performance so investors can move with confidence.</p>
+        <p class="mx-auto max-w-3xl text-lg text-gray-400 leading-relaxed">BridgeField Capital Group brings structure, discipline, and transparency to digital investing. We design every service around security, governance, and measurable performance so investors can move with confidence.</p>
     </div>
 </section>
 
@@ -47,7 +47,7 @@
     <div class="max-w-6xl mx-auto px-6 grid gap-16 lg:grid-cols-2">
         <div class="space-y-6">
             <h2 class="text-3xl font-semibold text-white">Our Purpose</h2>
-            <p class="text-gray-300 leading-relaxed text-lg">HarbourCrest Wealth exists to close the gap between emerging digital markets and proven investment standards. We help investors access crypto opportunities without sacrificing the controls, transparency, and risk management that matter most.</p>
+            <p class="text-gray-300 leading-relaxed text-lg">BridgeField Capital Group exists to close the gap between emerging digital markets and proven investment standards. We help investors access crypto opportunities without sacrificing the controls, transparency, and risk management that matter most.</p>
             <p class="text-gray-300 leading-relaxed text-lg">Our platform is built for those who expect more than volatility: they expect a dependable process, clear accountability, and a framework that supports long-term capital growth.</p>
         </div>
 
@@ -85,7 +85,7 @@
 
 <section class="py-20 border-t border-gray-800">
     <div class="max-w-4xl mx-auto px-6 text-gray-500 text-sm leading-relaxed">
-        <p><strong>Risk Disclosure:</strong> Investing in digital assets involves risk, including possible loss of capital. HarbourCrest Wealth does not guarantee returns. Past performance is not a reliable indicator of future results. Investors should evaluate their objectives and consult qualified advisors before investing.</p>
+        <p><strong>Risk Disclosure:</strong> Investing in digital assets involves risk, including possible loss of capital. BridgeField Capital Group does not guarantee returns. Past performance is not a reliable indicator of future results. Investors should evaluate their objectives and consult qualified advisors before investing.</p>
     </div>
 </section>
 
@@ -96,8 +96,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                     <div>
                         <div class="flex items-center space-x-2">
-                            <img src="{{ asset('mylogo1.png') }}" alt="Bridgefield Capital Group" class="w-12 h-12 rounded">
-                            <div class="text-xl font-bold text-yellow-400">HarbourCrest Wealth</div>
+                            <img src="{{ asset('mylogo1.png') }}" alt="BridgeField Capital Group" class="w-12 h-12 rounded">
+                            <div class="text-xl font-bold text-yellow-400">BridgeField Capital Group</div>
                         </div>
                         <p class="text-gray-300 text-sm leading-relaxed">The premier crypto investment platform offering secure, transparent, and profitable investment opportunities for everyone.</p>
                     </div>
@@ -130,7 +130,7 @@
                     </div>
                 </div>
                 <div class="border-t border-gray-700 pt-8 text-center">
-                    <p class="text-gray-400 text-sm">&copy; 2024 HarbourCrest Wealth Platform. All rights reserved. | Regulated and compliant with international standards.</p>
+                    <p class="text-gray-400 text-sm">&copy; 2026 BridgeField Capital Group. All rights reserved. | Regulated and compliant with international standards.</p>
         </div>
     </div>
 </footer>

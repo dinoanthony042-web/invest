@@ -43,7 +43,7 @@
             <section class="features bg-gradient-to-br from-gray-900 via-gray-800 to-black py-24 relative overflow-hidden">
                 <div class="container mx-auto px-4 text-center relative z-10">
                     <h1 class="text-5xl md:text-6xl font-extrabold mb-6 text-white leading-tight tracking-tight">Advanced Features<br><span class="text-yellow-400">for Smart Investors</span></h1>
-                    <p class="text-xl md:text-2xl mb-16 text-gray-200 max-w-3xl mx-auto leading-relaxed">Discover the powerful tools and features that make HarbourCrest Wealth the premier choice for crypto investment.</p>
+                    <p class="text-xl md:text-2xl mb-16 text-gray-200 max-w-3xl mx-auto leading-relaxed">Discover the powerful tools and features that make BridgeField Capital Group the premier choice for crypto investment.</p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <div class="bg-gray-800 text-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-gray-700">
@@ -109,8 +109,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                     <div>
                         <div class="flex items-center space-x-2">
-                            <img src="{{ asset('mylogo.png') }}" alt="HarbourCrest Wealth" class="w-12 h-12 rounded">
-                            <div class="text-xl font-bold text-yellow-400">HarbourCrest Wealth</div>
+                            <img src="{{ asset('mylogo1.png') }}" alt="BridgeField Capital Group" class="w-12 h-12 rounded">
+                            <div class="text-xl font-bold text-yellow-400">BridgeField Capital Group</div>
                         </div>
                         <p class="text-gray-300 text-sm leading-relaxed">The premier crypto investment platform offering secure, transparent, and profitable investment opportunities for everyone.</p>
                     </div>
@@ -143,7 +143,7 @@
                     </div>
                 </div>
                 <div class="border-t border-gray-700 pt-8 text-center">
-                    <p class="text-gray-400 text-sm">&copy; 2024 HarbourCrest Wealth Platform. All rights reserved. | Regulated and compliant with international standards.</p>
+                    <p class="text-gray-400 text-sm">&copy; 2026 BridgeField Capital Group. All rights reserved. | Regulated and compliant with international standards.</p>
                 </div>
             </div>
         </footer>

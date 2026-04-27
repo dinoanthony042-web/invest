@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="{{ asset('mylogo.png') }}">
-        <title>Plans - HarbourCrest Wealth</title>
+        <link rel="icon" type="image/png" href="{{ asset('mylogo1.png') }}">
+        <title>Plans - BridgeField Capital Group</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -23,8 +23,8 @@
         <header class="w-full text-sm mb-6">
             <nav class="flex justify-between items-center p-6 bg-black/95 backdrop-blur-sm border-b border-yellow-400/20 shadow-lg">
                 <a href="/" class="flex items-center space-x-2">
-                    <img src="{{ asset('mylogo.png') }}" alt="HarbourCrest Wealth" class="w-12 h-12 rounded">
-                    <span class="text-xl font-extrabold text-yellow-400">HarbourCrest Wealth</span>
+                    <img src="{{ asset('mylogo1.png') }}" alt="BridgeField Capital Group" class="w-12 h-12 rounded">
+                    <span class="text-xl font-extrabold text-yellow-400">BridgeField Capital Group</span>
                 </a>
                 <div class="hidden md:flex space-x-8">
                     <a href="/features" class="text-yellow-400 hover:text-yellow-300 transition-colors duration-300 font-medium">Features</a>
@@ -103,8 +103,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                     <div>
                         <div class="flex items-center space-x-2">
-                            <img src="{{ asset('mylogo.png') }}" alt="HarbourCrest Wealth" class="w-12 h-12 rounded">
-                            <div class="text-xl font-bold text-yellow-400">HarbourCrest Wealth</div>
+                            <img src="{{ asset('mylogo1.png') }}" alt="BridgeField Capital Group" class="w-12 h-12 rounded">
+                            <div class="text-xl font-bold text-yellow-400">BridgeField Capital Group</div>
                         </div>
                         <p class="text-gray-300 text-sm leading-relaxed">The premier crypto investment platform offering secure, transparent, and profitable investment opportunities for everyone.</p>
                     </div>
@@ -137,7 +137,7 @@
                     </div>
                 </div>
                 <div class="border-t border-gray-700 pt-8 text-center">
-                    <p class="text-gray-400 text-sm">&copy; 2026 HarbourCrest Wealth Platform. All rights reserved. | Regulated and compliant with international standards.</p>
+                    <p class="text-gray-400 text-sm">&copy; 2026 BridgeField Capital Group. All rights reserved. | Regulated and compliant with international standards.</p>
                 </div>
             </div>
         </footer>

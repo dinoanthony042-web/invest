@@ -99,7 +99,7 @@
 
             <section class="why-choose bg-gradient-to-br from-gray-900 via-gray-800 to-black py-20">
                 <div class="container mx-auto px-4 text-center">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Why Choose HarbourCrest Wealth?</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Why Choose BridgeField Capital Group?</h2>
                     <p class="text-lg md:text-xl mb-12 text-gray-200 max-w-2xl mx-auto">We combine advanced trading strategies with secure infrastructure to deliver consistent returns.</p>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div class="bg-gray-800 text-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-gray-700">
@@ -138,8 +138,8 @@
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                         <div>
                             <div class="flex items-center space-x-2">
-                                <img src="{{ asset('mylogo.png') }}" alt="HarbourCrest Wealth" class="w-12 h-12 rounded">
-                                <div class="text-xl font-bold text-yellow-400">HarbourCrest Wealth</div>
+                                <img src="{{ asset('mylogo1.png') }}" alt="BridgeField Capital Group" class="w-12 h-12 rounded">
+                                <div class="text-xl font-bold text-yellow-400">BridgeField Capital Group</div>
                             </div>
                             <p class="text-gray-300 text-sm leading-relaxed">The premier crypto investment platform offering secure, transparent, and profitable investment opportunities for everyone.</p>
                         </div>
@@ -172,7 +172,7 @@
                         </div>
                     </div>
                     <div class="border-t border-gray-700 pt-8 text-center">
-                        <p class="text-gray-400 text-sm">&copy; 2024 HarbourCrest Wealth Platform. All rights reserved. | Regulated and compliant with international standards.</p>
+                        <p class="text-gray-400 text-sm">&copy; 2026 BridgeField Capital Group. All rights reserved. | Regulated and compliant with international standards.</p>
                     </div>
                 </div>
             </footer>
