@@ -20,6 +20,12 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
+            if (!Auth::user()->hasVerifiedEmail()) {
+                Auth::logout();
+                return redirect('/email/verify')->with('resent', true);
+            }
+
             return redirect()->intended('/dashboard');
         }
 
@@ -41,14 +47,16 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'user', // default role
         ]);
 
-        return redirect('/login')->with('success', 'Registration successful. Please login.');
+        Auth::login($user);
+
+        return redirect('/email/verify');
     }
 
     public function logout(Request $request)

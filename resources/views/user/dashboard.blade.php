@@ -3,17 +3,21 @@
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white font-sans">
 
+    @if (session('verified'))
+        <div class="bg-green-600 text-white px-4 py-3 rounded mb-4 text-center">
+            Your email has been verified successfully!
+        </div>
+    @endif
+
     <!-- PROFESSIONAL HEADER -->
-    <header class="bg-black/50 backdrop-blur-lg border-b border-yellow-400/20 sticky top-0 z-50 w-full">
+    <header class="bg-black/50 backdrop-blur-lg border-b border-yellow-400/20 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-4">
-                    <div class="w-10 h-10 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
-                        <span class="text-black font-bold text-lg">V</span>
-                    </div>
+                    <img src="{{ asset('mylogo.png') }}" alt="HarbourCrest Wealth" class="w-14 h-14 rounded-lg">
                     <div>
                         <h1 class="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-                            VaultX Pro
+                            HarbourCrest Wealth
                         </h1>
                         <p class="text-xs text-gray-400">Professional Crypto Investment Platform</p>
                     </div>
@@ -48,6 +52,27 @@
                     </form>
                 </div>
             </div>
+
+            <!-- NAVIGATION -->
+            <nav class="mt-6">
+                <div class="flex space-x-1 bg-gray-800/50 rounded-xl p-1 backdrop-blur-sm">
+                    <a href="{{ route('dashboard') }}" class="flex-1 px-4 py-2 text-sm font-medium bg-yellow-400 text-black rounded-lg transition-colors">
+                        📊 Dashboard
+                    </a>
+                    <a href="{{ route('deposit') }}" class="flex-1 px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg transition-colors">
+                        💰 Deposit
+                    </a>
+                    <a href="{{ route('investment.plans') }}" class="flex-1 px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg transition-colors">
+                        📈 Invest
+                    </a>
+                    <a href="#" class="flex-1 px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg transition-colors">
+                        📊 Analytics
+                    </a>
+                    <a href="#" class="flex-1 px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg transition-colors">
+                        ⚙️ Settings
+                    </a>
+                </div>
+            </nav>
         </div>
     </header>
 
@@ -150,9 +175,6 @@
                 <div class="bg-gray-800 rounded-2xl p-6 border border-yellow-400/20">
                     <h3 class="font-bold text-yellow-400 mb-4">Quick Actions</h3>
                     <div class="space-y-3">
-                        <button class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-semibold py-3 px-4 rounded-xl hover:from-yellow-500 hover:to-orange-600 transition-all transform hover:scale-105">
-                            🚀 Buy Crypto
-                        </button>
                         <button class="w-full bg-gray-700 text-white font-semibold py-3 px-4 rounded-xl hover:bg-gray-600 transition-colors">
                             <a href="{{ route('deposit') }}" class="block w-full h-full flex items-center justify-center">💰 Deposit Funds</a>
                         </button>
@@ -452,7 +474,7 @@
                         <span class="text-black font-bold">V</span>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-400">© 2026 VaultX Pro. All rights reserved.</p>
+                        <p class="text-sm text-gray-400">© 2026 HarbourCrest Wealth. All rights reserved.</p>
                         <p class="text-xs text-gray-500">Professional Crypto Investment Platform</p>
                     </div>
                 </div>

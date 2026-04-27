@@ -6,7 +6,10 @@
         <div class="col-md-6">
             <div class="card shadow-lg">
                 <div class="card-header text-center">
-                    <h2 class="mb-0">Login to Vault X</h2>
+                    <div class="mb-3">
+                        <img src="{{ asset('mylogo1.png') }}" alt="Bridgefield Capital Group" class="w-16 h-16 rounded mx-auto">
+                    </div>
+                    <h2 class="mb-0">Login to Bridgefield Capital Group</h2>
                 </div>
 
                 <div class="card-body p-5">

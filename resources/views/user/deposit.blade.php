@@ -8,12 +8,10 @@
         <div class="max-w-7xl mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-4">
-                    <div class="w-10 h-10 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
-                        <span class="text-black font-bold text-lg">V</span>
-                    </div>
+                    <img src="{{ asset('mylogo.png') }}" alt="HarbourCrest Wealth" class="w-14 h-14 rounded-lg">
                     <div>
                         <h1 class="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-                            VaultX Pro
+                            HarbourCrest Wealth
                         </h1>
                         <p class="text-xs text-gray-400">Professional Crypto Investment Platform</p>
                     </div>
@@ -80,7 +78,7 @@
             <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
                 Deposit Funds
             </h1>
-            <p class="text-gray-400 text-lg">Add funds to your VaultX account securely</p>
+            <p class="text-gray-400 text-lg">Add funds to your HarbourCrest Wealth account securely</p>
         </div>
 
         <!-- DEPOSIT AMOUNT INPUT -->

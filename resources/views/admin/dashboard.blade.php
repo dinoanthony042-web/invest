@@ -3,6 +3,12 @@
 @section('content')
 <div class="min-h-screen" style="background: #0a0a0a; font-family: Inter, sans-serif; color: #ffffff;">
 
+    @if (session('verified'))
+        <div class="bg-green-600 text-white px-4 py-3 rounded mb-4 text-center">
+            Your email has been verified successfully!
+        </div>
+    @endif
+
     <!-- TOP BAR -->
     <div class="px-6 py-5 flex justify-between items-center border-b bg-black">
         <div>
