@@ -21,11 +21,6 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            if (!Auth::user()->hasVerifiedEmail()) {
-                Auth::logout();
-                return redirect('/email/verify')->with('resent', true);
-            }
-
             return redirect()->intended('/dashboard');
         }
 
@@ -56,7 +51,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect('/email/verify');
+        return redirect('/dashboard');
     }
 
     public function logout(Request $request)
