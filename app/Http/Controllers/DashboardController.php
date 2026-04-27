@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Investment;
 use App\Models\CryptoCurrency;
 use App\Models\DepositRequest;
@@ -71,6 +72,9 @@ class DashboardController extends Controller
             'status' => 'pending',
         ]);
 
+        // Send pending deposit email
+        Mail::to($deposit->user->email)->send(new \App\Mail\DepositPendingMail($deposit));
+
         return redirect()->route('deposit.confirmation', ['deposit' => $deposit->id]);
     }
 
@@ -103,6 +107,9 @@ class DashboardController extends Controller
         if ($deposit->status === 'pending') {
             $deposit->update(['status' => 'approved']);
             $deposit->user->increment('wallet_balance', $deposit->amount);
+
+            // Send approved deposit email
+            Mail::to($deposit->user->email)->send(new \App\Mail\DepositApprovedMail($deposit));
         }
 
         return back()->with('success', 'Deposit approved and wallet balance updated.');
