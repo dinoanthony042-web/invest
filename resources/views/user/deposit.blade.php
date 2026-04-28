@@ -3,33 +3,64 @@
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white font-sans">
 
-    <!-- PROFESSIONAL HEADER -->
-    <header class="bg-black/50 backdrop-blur-lg border-b border-yellow-400/20 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center space-x-4">
-                    <img src="{{ asset('mylogo1.png') }}" alt="BridgeField Capital Group" class="w-14 h-14 rounded-lg">
-                    <div>
-                        <h1 class="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-                            BridgeField Capital Group
-                        </h1>
-                        <p class="text-xs text-gray-400">Professional Crypto Investment Platform</p>
-                    </div>
-                </div>
+    <!-- Off-Canvas Sidebar -->
+    <div id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-gray-900 transform -translate-x-full transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0">
+        <div class="flex items-center justify-center h-16 bg-gray-800 border-b border-yellow-400/20">
+            <img src="{{ asset('mylogo1.png') }}" alt="BridgeField Capital Group" class="w-10 h-10 rounded-lg mr-3">
+            <span class="text-lg font-bold text-yellow-400">BridgeField</span>
+        </div>
+        <nav class="mt-8 px-4">
+            <div class="space-y-2">
+                <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
+                    <span class="mr-3">📊</span> Dashboard
+                </a>
+                <a href="{{ route('deposit') }}" class="flex items-center px-4 py-3 text-sm font-medium text-white bg-yellow-400/20 rounded-lg border border-yellow-400/30">
+                    <span class="mr-3">💰</span> Deposits
+                </a>
+                <a href="{{ route('investment.plans') }}" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
+                    <span class="mr-3">📈</span> Invest
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
+                    <span class="mr-3">📊</span> Analytics
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
+                    <span class="mr-3">⚙️</span> Settings
+                </a>
+            </div>
+        </nav>
+        <div class="absolute bottom-0 w-full p-4 border-t border-gray-700">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button class="w-full flex items-center px-4 py-3 text-sm font-medium text-red-400 hover:text-red-300 hover:bg-gray-800 rounded-lg transition-colors">
+                    <span class="mr-3">🚪</span> Logout
+                </button>
+            </form>
+        </div>
+    </div>
 
-                <div class="flex items-center space-x-4">
-                    <div class="hidden md:flex items-center space-x-6 text-sm">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                            <span class="text-green-400">Market Open</span>
-                        </div>
-                        <div class="text-gray-400">
-                            Last Update: {{ now()->format('H:i:s') }}
-                        </div>
+    <!-- Sidebar Overlay (Mobile) -->
+    <div id="sidebar-overlay" class="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden hidden" onclick="closeSidebar()"></div>
+
+    <!-- Main Content -->
+    <div class="lg:ml-64">
+        <!-- Top Header -->
+        <header class="bg-black/50 backdrop-blur-lg border-b border-yellow-400/20 sticky top-0 z-30">
+            <div class="px-4 py-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <!-- Hamburger Menu -->
+                        <button id="sidebar-toggle" class="lg:hidden mr-4 p-2 rounded-lg hover:bg-gray-800 transition-colors" onclick="toggleSidebar()">
+                            <svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                        <!-- Page Title -->
+                        <h1 class="text-xl font-bold text-yellow-400">Deposit Funds</h1>
                     </div>
 
+                    <!-- User Profile -->
                     <div class="flex items-center space-x-3">
-                        <div class="text-right hidden sm:block">
+                        <div class="hidden sm:block text-right">
                             <p class="text-sm font-medium">{{ Auth::user()->name }}</p>
                             <p class="text-xs text-gray-400">Premium Investor</p>
                         </div>
@@ -37,41 +68,21 @@
                             <span class="text-white font-bold">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
                         </div>
                     </div>
-
-                    <form method="POST" action="{{ route('logout') }}" class="inline">
-                        @csrf
-                        <button class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium transition-colors">
-                            Logout
-                        </button>
-                    </form>
                 </div>
             </div>
+        </header>
 
-            <!-- NAVIGATION -->
-            <nav class="mt-6">
-                <div class="flex space-x-1 bg-gray-800/50 rounded-xl p-1 backdrop-blur-sm">
-                    <a href="{{ route('dashboard') }}" class="flex-1 px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg transition-colors">
-                        📊 Dashboard
-                    </a>
-                    <a href="{{ route('deposit') }}" class="flex-1 px-4 py-2 text-sm font-medium bg-yellow-400 text-black rounded-lg transition-colors">
-                        💰 Deposit
-                    </a>
-                    <a href="#" class="flex-1 px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg transition-colors">
-                        📈 Invest
-                    </a>
-                    <a href="#" class="flex-1 px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg transition-colors">
-                        📊 Analytics
-                    </a>
-                    <a href="#" class="flex-1 px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg transition-colors">
-                        ⚙️ Settings
-                    </a>
-                </div>
-            </nav>
-        </div>
-    </header>
+        <!-- Breadcrumb -->
+        <nav class="px-4 py-3 bg-gray-900/50 border-b border-gray-700">
+            <ol class="flex items-center space-x-2 text-sm">
+                <li><a href="{{ route('dashboard') }}" class="text-yellow-400 hover:text-yellow-300">Dashboard</a></li>
+                <li class="text-gray-400">/</li>
+                <li class="text-white">Deposit</li>
+            </ol>
+        </nav>
 
-    <!-- MAIN DEPOSIT CONTENT -->
-    <main class="max-w-7xl mx-auto px-6 py-8">
+        <!-- MAIN DEPOSIT CONTENT -->
+        <main class="px-4 py-8">
 
         <!-- PAGE HEADER -->
         <div class="mb-8">
@@ -584,9 +595,193 @@
 
     </main>
 
+    <!-- FOOTER -->
+    <footer class="lg:ml-64 bg-black/50 backdrop-blur-lg border-t border-yellow-400/20 mt-16">
+        <div class="px-4 py-8">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
+                        <span class="text-black font-bold">V</span>
+                    </div>
+                    <div class="text-center sm:text-left">
+                        <p class="text-sm text-gray-400">© 2026 BridgeField Capital Group. All rights reserved.</p>
+                        <p class="text-xs text-gray-500">Professional Crypto Investment Platform</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center sm:justify-end space-x-6 text-sm text-gray-400 gap-4">
+                    <a href="#" class="hover:text-yellow-400 transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-yellow-400 transition-colors">Terms</a>
+                    <a href="#" class="hover:text-yellow-400 transition-colors">Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </div>
 
 <script>
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    
+    if (sidebar.classList.contains('-translate-x-full')) {
+        // Open sidebar
+        sidebar.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+    } else {
+        // Close sidebar
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+    }
+}
+
+function closeSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    
+    sidebar.classList.add('-translate-x-full');
+    overlay.classList.add('hidden');
+}
+
+// Close sidebar when clicking on a nav link (mobile)
+document.querySelectorAll('#sidebar a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth < 1024) { // lg breakpoint
+            closeSidebar();
+        }
+    });
+});
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    
+    if (window.innerWidth >= 1024) {
+        // Desktop: ensure sidebar is visible
+        sidebar.classList.remove('-translate-x-full');
+        overlay.classList.add('hidden');
+    } else {
+        // Mobile: ensure sidebar is hidden initially
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+    }
+});
+
+// Deposit functionality
+let selectedAmount = 0;
+let selectedNetwork = '';
+
+function validateAmount(input) {
+    const amount = parseFloat(input.value);
+    const button = document.querySelector('button[onclick="setDepositAmount()"]');
+    
+    if (amount >= 10) {
+        button.disabled = false;
+        button.classList.remove('opacity-50', 'cursor-not-allowed');
+        button.classList.add('hover:scale-105');
+    } else {
+        button.disabled = true;
+        button.classList.add('opacity-50', 'cursor-not-allowed');
+        button.classList.remove('hover:scale-105');
+    }
+}
+
+function setDepositAmount() {
+    const input = document.getElementById('deposit-amount');
+    selectedAmount = parseFloat(input.value);
+    
+    document.getElementById('selected-amount').textContent = '$' + selectedAmount.toFixed(2);
+    document.getElementById('amount-display').classList.remove('hidden');
+    document.getElementById('network-selection').classList.remove('hidden');
+    
+    // Update all amount displays
+    document.getElementById('btc-amount-display').textContent = '$' + selectedAmount.toFixed(2);
+    document.getElementById('eth-amount-display').textContent = '$' + selectedAmount.toFixed(2);
+    document.getElementById('usdt-trc20-amount-display').textContent = '$' + selectedAmount.toFixed(2);
+    document.getElementById('usdt-erc20-amount-display').textContent = '$' + selectedAmount.toFixed(2);
+    document.getElementById('bnb-amount-display').textContent = '$' + selectedAmount.toFixed(2);
+    
+    // Scroll to network selection
+    document.getElementById('network-selection').scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetAmount() {
+    selectedAmount = 0;
+    document.getElementById('deposit-amount').value = '';
+    document.getElementById('amount-display').classList.add('hidden');
+    document.getElementById('network-selection').classList.add('hidden');
+    
+    const button = document.querySelector('button[onclick="setDepositAmount()"]');
+    button.disabled = true;
+    button.classList.add('opacity-50', 'cursor-not-allowed');
+    button.classList.remove('hover:scale-105');
+}
+
+function selectNetwork(network) {
+    selectedNetwork = network;
+    
+    // Update tabs
+    document.querySelectorAll('.network-tab').forEach(tab => {
+        tab.classList.remove('active', 'bg-yellow-400', 'text-black');
+        tab.classList.add('bg-gray-700', 'text-gray-300');
+    });
+    
+    document.getElementById(network + '-tab').classList.add('active', 'bg-yellow-400', 'text-black');
+    document.getElementById(network + '-tab').classList.remove('bg-gray-700', 'text-gray-300');
+    
+    // Show selected wallet
+    document.querySelectorAll('.wallet-card').forEach(card => {
+        card.classList.add('hidden');
+    });
+    
+    document.getElementById(network + '-wallet').classList.remove('hidden');
+    
+    // Enable confirm button
+    const confirmBtn = document.getElementById('confirm-deposit-btn');
+    confirmBtn.disabled = false;
+    confirmBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+}
+
+function copyToClipboard(elementId) {
+    const element = document.getElementById(elementId);
+    element.select();
+    document.execCommand('copy');
+    
+    // Visual feedback
+    const button = document.getElementById(elementId.replace('-address', '-copy-btn'));
+    const originalText = button.textContent;
+    button.textContent = '✅ Copied!';
+    button.classList.add('bg-green-500');
+    button.classList.remove('bg-yellow-400', 'hover:bg-yellow-500');
+    
+    setTimeout(() => {
+        button.textContent = originalText;
+        button.classList.remove('bg-green-500');
+        button.classList.add('bg-yellow-400', 'hover:bg-yellow-500');
+    }, 2000);
+}
+
+function submitDepositRequest() {
+    if (!selectedAmount || !selectedNetwork) {
+        alert('Please select an amount and network first.');
+        return;
+    }
+    
+    // Set form values
+    document.getElementById('deposit-amount-hidden').value = selectedAmount;
+    document.getElementById('deposit-network-hidden').value = selectedNetwork;
+    
+    // Get wallet address based on network
+    const addressElement = document.getElementById(selectedNetwork + '-address');
+    document.getElementById('deposit-wallet-hidden').value = addressElement.value;
+    
+    // Submit form
+    document.getElementById('deposit-request-form').submit();
+}
+</script>
+@endsection
 let selectedAmount = 0;
 let selectedNetwork = null;
 let selectedWalletAddress = null;
