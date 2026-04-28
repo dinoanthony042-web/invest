@@ -4,7 +4,7 @@
 <div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white font-sans">
 
     <!-- Off-Canvas Sidebar -->
-    <div id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-gray-900 transform -translate-x-full transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0">
+    <div id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-gray-900 transform -translate-x-full transition-transform duration-300 ease-in-out lg:translate-x-0">
         <div class="flex items-center justify-center h-16 bg-gray-800 border-b border-yellow-400/20">
             <img src="{{ asset('mylogo1.png') }}" alt="BridgeField Capital Group" class="w-10 h-10 rounded-lg mr-3">
             <span class="text-lg font-bold text-yellow-400">BridgeField</span>
@@ -46,7 +46,8 @@
         <!-- Top Header -->
         <header class="bg-black/50 backdrop-blur-lg border-b border-yellow-400/20 sticky top-0 z-30">
             <div class="px-4 py-4">
-                <div class="flex justify-between items-center">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between items-center">
                     <div class="flex items-center">
                         <!-- Hamburger Menu -->
                         <button id="sidebar-toggle" class="lg:hidden mr-4 p-2 rounded-lg hover:bg-gray-800 transition-colors" onclick="toggleSidebar()">
@@ -59,17 +60,20 @@
                     </div>
 
                     @include('components.user-profile-dropdown')
+                    </div>
                 </div>
             </div>
         </header>
 
         <!-- Breadcrumb -->
         <nav class="px-4 py-3 bg-gray-900/50 border-b border-gray-700">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <ol class="flex items-center space-x-2 text-sm">
                 <li><a href="{{ route('dashboard') }}" class="text-yellow-400 hover:text-yellow-300">Dashboard</a></li>
                 <li class="text-gray-400">/</li>
                 <li class="text-white">Deposit</li>
             </ol>
+            </div>
         </nav>
 
         <!-- MAIN DEPOSIT CONTENT -->
