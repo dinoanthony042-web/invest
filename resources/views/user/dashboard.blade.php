@@ -13,7 +13,7 @@
     <div id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-gray-900 transform -translate-x-full transition-transform duration-300 ease-in-out lg:translate-x-0">
         <div class="flex items-center justify-center h-16 bg-gray-800 border-b border-yellow-400/20">
             <img src="{{ asset('mylogo1.png') }}" alt="BridgeField Capital Group" class="w-10 h-10 rounded-lg mr-3">
-            <span class="text-lg font-bold text-yellow-400">BridgeField</span>
+            <span class="text-lg font-bold text-yellow-400">BridgeFieldCapital Group</span>
         </div>
         <nav class="mt-8 px-4">
             <div class="space-y-2">

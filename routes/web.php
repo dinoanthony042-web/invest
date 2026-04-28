@@ -15,7 +15,7 @@ Route::get('/features', function () {
 
 Route::get('/plans', function () {
     return view('plans');
-});
+})->name('plans.guest');
 
 Route::get('/about', function () {
     return view('about');
@@ -53,7 +53,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/deposit', [DashboardController::class, 'deposit'])->name('deposit');
     Route::post('/deposit/request', [DashboardController::class, 'submitDepositRequest'])->name('deposit.submit');
     Route::get('/deposit/confirmation/{deposit}', [DashboardController::class, 'depositConfirmation'])->name('deposit.confirmation');
-    Route::get('/plans', [DashboardController::class, 'investmentPlans'])->name('investment.plans');
+    Route::get('/investmentplan', [DashboardController::class, 'investmentPlans'])->name('investment.plans');
     Route::post('/plans/{plan}/buy', [DashboardController::class, 'buyPlan'])->name('plans.buy');
     Route::get('/admin/deposits', [DashboardController::class, 'adminDepositRequests'])->name('admin.deposits');
     Route::post('/admin/deposits/{deposit}/approve', [DashboardController::class, 'approveDeposit'])->name('admin.deposit.approve');

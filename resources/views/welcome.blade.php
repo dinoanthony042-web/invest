@@ -28,7 +28,7 @@
                 </a>
                 <div class="hidden md:flex space-x-8">
                     <a href="/features" class="text-yellow-400 hover:text-yellow-300 transition-colors duration-300 font-medium">Features</a>
-                    <a href="/plans" class="text-yellow-400 hover:text-yellow-300 transition-colors duration-300 font-medium">Plans</a>
+                    <a href="{{ auth()->check() ? route('investment.plans') : route('plans.guest') }}" class="text-yellow-400 hover:text-yellow-300 transition-colors duration-300 font-medium">Plans</a>
                     <a href="/about" class="text-yellow-400 hover:text-yellow-300 transition-colors duration-300 font-medium">About</a>
                 </div>
             
@@ -47,10 +47,10 @@
                     <h1 class="text-5xl md:text-6xl font-extrabold mb-6 text-white leading-tight tracking-tight">Smart Crypto Investing<br><span class="text-yellow-400">for Future Growth</span></h1>
                     <p class="text-xl md:text-2xl mb-10 text-gray-200 max-w-3xl mx-auto leading-relaxed">Experience institution-grade crypto investment portfolios with predictable yields, risk-tiered plans, and complete transparency.</p>
                     <div class="flex flex-col sm:flex-row justify-center gap-6 mb-16">
-                      <a href="/plans">
+                      <a href="{{ auth()->check() ? route('investment.plans') : route('plans.guest') }}">
                         <button class="bg-yellow-400 hover:bg-yellow-300 text-black px-10 py-4 rounded-full font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">Start Investing Now</button>
                       </a>
-                      <a href="/plans">
+                      <a href="{{ auth()->check() ? route('investment.plans') : route('plans.guest') }}">
                         <button class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-black px-10 py-4 rounded-full font-bold text-lg transition-all duration-300 transform hover:scale-105">View Plans</button>
                     </div>
                     <div class="flex flex-col sm:flex-row justify-center items-center gap-12">

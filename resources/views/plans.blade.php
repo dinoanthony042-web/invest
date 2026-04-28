@@ -28,7 +28,7 @@
                 </a>
                 <div class="hidden md:flex space-x-8">
                     <a href="/features" class="text-yellow-400 hover:text-yellow-300 transition-colors duration-300 font-medium">Features</a>
-                    <a href="/plans" class="text-yellow-400 hover:text-yellow-300 transition-colors duration-300 font-medium">Plans</a>
+                    <a href="{{ auth()->check() ? route('investment.plans') : route('plans.guest') }}" class="text-yellow-400 hover:text-yellow-300 transition-colors duration-300 font-medium">Plans</a>
                     <a href="/about" class="text-yellow-400 hover:text-yellow-300 transition-colors duration-300 font-medium">About</a>
                 </div>
                 <a href="/login"
@@ -113,7 +113,7 @@
                         <ul class="space-y-2 text-sm text-gray-300">
                             <li><a href="/" class="hover:text-yellow-300 transition-colors">Home</a></li>
                             <li><a href="/features" class="hover:text-yellow-300 transition-colors">Features</a></li>
-                            <li><a href="/plans" class="hover:text-yellow-300 transition-colors">Plans</a></li>
+                            <li><a href="{{ auth()->check() ? route('investment.plans') : route('plans.guest') }}" class="hover:text-yellow-300 transition-colors">Plans</a></li>
                             <li><a href="/about" class="hover:text-yellow-300 transition-colors">About</a></li>
                         </ul>
                     </div>
