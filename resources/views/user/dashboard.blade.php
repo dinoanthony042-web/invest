@@ -26,7 +26,7 @@
                 <a href="{{ route('investment.plans') }}" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
                     <span class="mr-3">📈</span> Invest
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
+                <a href="{{ route('analytics') }}" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
                     <span class="mr-3">📊</span> Analytics
                 </a>
                 <a href="#" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
@@ -125,27 +125,22 @@
                     </div>
                 </div>
 
-                <!-- MOCK CHART AREA -->
                 <div class="bg-gray-900/50 rounded-xl p-4 sm:p-6 border border-gray-700">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                         <h4 class="font-semibold text-yellow-400">Portfolio Performance</h4>
                         <div class="flex flex-wrap gap-2 sm:gap-3">
-                            <button class="px-3 py-2 bg-yellow-400/20 text-yellow-400 rounded-lg text-sm min-h-[44px]">1D</button>
-                            <button class="px-3 py-2 bg-gray-700 text-gray-300 rounded-lg text-sm hover:bg-gray-600 min-h-[44px]">7D</button>
-                            <button class="px-3 py-2 bg-gray-700 text-gray-300 rounded-lg text-sm hover:bg-gray-600 min-h-[44px]">1M</button>
-                            <button class="px-3 py-2 bg-gray-700 text-gray-300 rounded-lg text-sm hover:bg-gray-600 min-h-[44px]">1Y</button>
+                            <button type="button" data-range="1D" class="range-btn active px-3 py-2 bg-yellow-400/20 text-yellow-400 rounded-lg text-sm min-h-[44px]">1D</button>
+                            <button type="button" data-range="7D" class="range-btn px-3 py-2 bg-gray-700 text-gray-300 rounded-lg text-sm hover:bg-gray-600 min-h-[44px]">7D</button>
+                            <button type="button" data-range="30D" class="range-btn px-3 py-2 bg-gray-700 text-gray-300 rounded-lg text-sm hover:bg-gray-600 min-h-[44px]">1M</button>
+                            <button type="button" data-range="1Y" class="range-btn px-3 py-2 bg-gray-700 text-gray-300 rounded-lg text-sm hover:bg-gray-600 min-h-[44px]">1Y</button>
                         </div>
                     </div>
-                    <!-- Mock Chart Visualization -->
-                    <div class="h-56 sm:h-64 lg:h-72 overflow-hidden rounded-xl grid grid-cols-30 gap-1">
-                        @for($i = 0; $i < 30; $i++)
-                        <div class="bg-gradient-to-t from-yellow-400 to-orange-500 rounded-t w-full"
-                             style="height: {{ rand(20, 100) }}%"></div>
-                        @endfor
+                    <div class="h-56 sm:h-64 lg:h-72 overflow-hidden rounded-xl border border-yellow-500/10 bg-gray-950/50 p-3">
+                        <canvas id="portfolioChart" class="w-full h-full"></canvas>
                     </div>
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 text-xs sm:text-sm text-gray-400 gap-2">
-                        <span>Jan 1</span>
-                        <span>Today</span>
+                        <span id="chartStartLabel"></span>
+                        <span id="chartEndLabel"></span>
                     </div>
                 </div>
             </div>
@@ -235,22 +230,22 @@
 
                 <div class="p-6">
                     <div class="space-y-4">
-                        @forelse($investments as $investment)
+                        @forelse($portfolioItems as $item)
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-900/50 rounded-xl gap-4">
                             <div class="flex items-center space-x-4">
                                 <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <span class="text-white font-bold text-sm">{{ substr($investment->cryptoCurrency->symbol, 0, 2) }}</span>
+                                    <span class="text-white font-bold text-sm">{{ $item['key'] }}</span>
                                 </div>
                                 <div class="min-w-0">
-                                    <h4 class="font-semibold text-white truncate">{{ $investment->cryptoCurrency->name }}</h4>
-                                    <p class="text-sm text-gray-400">{{ $investment->cryptoCurrency->symbol }}</p>
+                                    <h4 class="font-semibold text-white truncate">{{ $item['name'] }}</h4>
+                                    <p class="text-sm text-gray-400">{{ $item['type'] === 'plan' ? 'Investment Plan' : $item['symbol'] }}</p>
                                 </div>
                             </div>
 
                             <div class="text-right sm:text-right">
-                                <p class="font-bold text-white">${{ number_format($investment->amount * $investment->cryptoCurrency->current_price, 2) }}</p>
-                                <p class="text-sm {{ ($investment->cryptoCurrency->current_price - $investment->purchase_price) >= 0 ? 'text-green-400' : 'text-red-400' }}">
-                                    {{ ($investment->cryptoCurrency->current_price - $investment->purchase_price) >= 0 ? '+' : '' }}{{ number_format((($investment->cryptoCurrency->current_price - $investment->purchase_price) / $investment->purchase_price) * 100, 1) }}%
+                                <p class="font-bold text-white">${{ number_format($item['current_value'], 2) }}</p>
+                                <p class="text-sm {{ $item['profit'] >= 0 ? 'text-green-400' : 'text-red-400' }}">
+                                    {{ $item['profit'] >= 0 ? '+' : '' }}${{ number_format($item['profit'], 2) }}
                                 </p>
                             </div>
                         </div>
@@ -353,7 +348,7 @@
 
                             <div class="flex justify-between items-center">
                                 <span class="text-sm text-gray-400">Days Remaining</span>
-                                <span class="font-bold text-white">{{ max(($userPlan->investmentPlan->duration_months * 30) - $userPlan->created_at->diffInDays(now()), 0) }} days</span>
+                                <span class="font-bold text-white">{{ max(intval(($userPlan->investmentPlan->duration_months * 30) - $userPlan->created_at->diffInDays(now())), 0) }} days</span>
                             </div>
 
                             <div class="flex justify-between items-center">
@@ -473,7 +468,75 @@
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+const portfolioPerformanceRanges = @json($performanceRanges);
+let portfolioChart;
+
+function initializePortfolioChart() {
+    const ctx = document.getElementById('portfolioChart').getContext('2d');
+    const rangeKey = '1D';
+    const rangeData = portfolioPerformanceRanges[rangeKey];
+
+    portfolioChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: rangeData.labels,
+            datasets: [{
+                label: 'Portfolio Value',
+                data: rangeData.values,
+                fill: true,
+                backgroundColor: 'rgba(248, 212, 22, 0.15)',
+                borderColor: 'rgba(248, 212, 22, 0.9)',
+                pointRadius: 3,
+                tension: 0.35,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    ticks: { color: '#d1d5db' },
+                    grid: { color: 'rgba(255,255,255,0.05)' }
+                },
+                y: {
+                    ticks: {
+                        color: '#d1d5db',
+                        callback: value => '$' + value.toLocaleString(),
+                    },
+                    grid: { color: 'rgba(255,255,255,0.05)' }
+                }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: context => '$' + Number(context.parsed.y).toFixed(2),
+                    }
+                }
+            }
+        }
+    });
+    updateChartLabels(rangeKey);
+}
+
+function updateChartLabels(rangeKey) {
+    const labels = portfolioPerformanceRanges[rangeKey]?.labels || [];
+    document.getElementById('chartStartLabel').textContent = labels[0] ?? '';
+    document.getElementById('chartEndLabel').textContent = labels[labels.length - 1] ?? '';
+}
+
+function setChartRange(rangeKey) {
+    const rangeData = portfolioPerformanceRanges[rangeKey];
+    if (!portfolioChart || !rangeData) return;
+
+    portfolioChart.data.labels = rangeData.labels;
+    portfolioChart.data.datasets[0].data = rangeData.values;
+    portfolioChart.update();
+    updateChartLabels(rangeKey);
+}
+
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebar-overlay');
@@ -520,6 +583,23 @@ window.addEventListener('resize', () => {
         sidebar.classList.add('-translate-x-full');
         overlay.classList.add('hidden');
     }
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.range-btn');
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-yellow-400/20', 'text-yellow-400');
+                btn.classList.add('bg-gray-700', 'text-gray-300');
+            });
+            button.classList.remove('bg-gray-700', 'text-gray-300');
+            button.classList.add('bg-yellow-400/20', 'text-yellow-400');
+            setChartRange(button.dataset.range);
+        });
+    });
+
+    initializePortfolioChart();
 });
 </script>
 @endsection

@@ -33,29 +33,118 @@ class DashboardController extends Controller
             // Get active investment plans
             $userInvestmentPlans = $user->userInvestments()->with('investmentPlan')->where('status', 'active')->get();
 
-            // Calculate total portfolio value including investments and plans
-            $totalValue = 0;
-            $totalCost = 0;
+            // Build a unified portfolio list
+            $portfolioItems = collect();
             foreach ($investments as $investment) {
                 $currentValue = $investment->amount * $investment->cryptoCurrency->current_price;
                 $cost = $investment->amount * $investment->purchase_price;
-                $totalValue += $currentValue;
-                $totalCost += $cost;
+                $portfolioItems->push([
+                    'type' => 'crypto',
+                    'name' => $investment->cryptoCurrency->name,
+                    'symbol' => $investment->cryptoCurrency->symbol,
+                    'amount' => $investment->amount,
+                    'current_value' => $currentValue,
+                    'profit' => $currentValue - $cost,
+                    'status' => $investment->status ?? 'active',
+                    'key' => substr($investment->cryptoCurrency->symbol, 0, 2),
+                ]);
             }
 
-            // Include investment plans value
             foreach ($userInvestmentPlans as $plan) {
                 $daysElapsed = $plan->created_at->diffInDays(now());
                 $totalDays = $plan->investmentPlan->duration_months * 30; // approximate
-                $progress = min($daysElapsed / $totalDays, 1);
+                $progress = min($totalDays > 0 ? $daysElapsed / $totalDays : 1, 1);
                 $currentValue = $plan->amount + ($plan->expected_return * $progress);
-                $totalValue += $currentValue;
-                $totalCost += $plan->amount;
+                $portfolioItems->push([
+                    'type' => 'plan',
+                    'name' => $plan->investmentPlan->name,
+                    'symbol' => 'PLAN',
+                    'amount' => $plan->amount,
+                    'current_value' => $currentValue,
+                    'profit' => $currentValue - $plan->amount,
+                    'status' => $plan->status,
+                    'key' => substr($plan->investmentPlan->name, 0, 2),
+                ]);
             }
 
+            // Calculate total portfolio value including investments and plans
+            $totalValue = $portfolioItems->sum('current_value');
+            $totalCost = $portfolioItems->sum(function ($item) {
+                return $item['type'] === 'crypto' ? $item['current_value'] - $item['profit'] : ($item['current_value'] - $item['profit']);
+            });
             $profit = $totalValue - $totalCost;
 
             $cryptos = CryptoCurrency::all();
+
+            // Helper: compute portfolio value at any past timestamp
+            $calculatePortfolioValue = function ($date) use ($investments, $userInvestmentPlans) {
+                $portfolioValue = 0;
+
+                foreach ($investments as $investment) {
+                    $timeHeld = max($investment->created_at->diffInMinutes($date), 0);
+                    $totalHeld = max($investment->created_at->diffInMinutes(now()), 1);
+                    $progress = min($timeHeld / $totalHeld, 1);
+                    $unitPrice = $investment->purchase_price + ($investment->cryptoCurrency->current_price - $investment->purchase_price) * $progress;
+                    if ($date >= $investment->created_at) {
+                        $portfolioValue += $investment->amount * $unitPrice;
+                    }
+                }
+
+                foreach ($userInvestmentPlans as $plan) {
+                    $daysElapsed = $plan->created_at->diffInDays($date);
+                    if ($date >= $plan->created_at) {
+                        $planDays = max($plan->investmentPlan->duration_months * 30, 1);
+                        $progress = min($daysElapsed / $planDays, 1);
+                        $portfolioValue += $plan->amount + ($plan->expected_return * $progress);
+                    }
+                }
+
+                return $portfolioValue;
+            };
+
+            $performanceRanges = [
+                '1D' => ['labels' => [], 'values' => []],
+                '7D' => ['labels' => [], 'values' => []],
+                '30D' => ['labels' => [], 'values' => []],
+                '1Y' => ['labels' => [], 'values' => []],
+            ];
+
+            for ($i = 23; $i >= 0; $i--) {
+                $date = now()->subHours($i);
+                $performanceRanges['1D']['labels'][] = $date->format('ga');
+                $performanceRanges['1D']['values'][] = $calculatePortfolioValue($date);
+            }
+
+            for ($i = 6; $i >= 0; $i--) {
+                $date = now()->subDays($i);
+                $performanceRanges['7D']['labels'][] = $date->format('M d');
+                $performanceRanges['7D']['values'][] = $calculatePortfolioValue($date);
+            }
+
+            for ($i = 29; $i >= 0; $i--) {
+                $date = now()->subDays($i);
+                $performanceRanges['30D']['labels'][] = $date->format('M d');
+                $performanceRanges['30D']['values'][] = $calculatePortfolioValue($date);
+            }
+
+            for ($i = 11; $i >= 0; $i--) {
+                $date = now()->subMonths($i);
+                $performanceRanges['1Y']['labels'][] = $date->format('M Y');
+                $performanceRanges['1Y']['values'][] = $calculatePortfolioValue($date);
+            }
+
+            $minValue = null;
+            $maxValue = null;
+            foreach ($performanceRanges as $range) {
+                foreach ($range['values'] as $value) {
+                    if ($minValue === null || $value < $minValue) {
+                        $minValue = $value;
+                    }
+                    if ($maxValue === null || $value > $maxValue) {
+                        $maxValue = $value;
+                    }
+                }
+            }
 
             // Get recent transactions
             $deposits = $user->depositRequests()->latest()->take(5)->get()->map(function ($deposit) {
@@ -86,23 +175,38 @@ class DashboardController extends Controller
 
             $recentTransactions = $deposits->merge($investmentTransactions)->sortByDesc('date')->take(5);
 
-            // Get crypto news
+            // Get crypto news from the new provider, fallback to NewsAPI
             $news = [];
             try {
-                $response = Http::get('https://newsapi.org/v2/everything', [
-                    'q' => 'cryptocurrency OR bitcoin OR ethereum',
-                    'sortBy' => 'publishedAt',
-                    'apiKey' => env('NEWS_API_KEY'),
-                    'pageSize' => 5,
+                $response = Http::get('https://api.thenewsapi.net/crypto', [
+                    'apikey' => env('NEWS_API_KEY'),
                 ]);
+
                 if ($response->successful()) {
-                    $news = $response->json()['articles'] ?? [];
+                    $payload = $response->json();
+                    if (isset($payload['data'])) {
+                        $news = $payload['data'];
+                    } elseif (isset($payload['articles'])) {
+                        $news = $payload['articles'];
+                    }
                 }
             } catch (\Exception $e) {
-                // Handle error silently
+                try {
+                    $fallback = Http::get('https://newsapi.org/v2/everything', [
+                        'q' => 'cryptocurrency OR bitcoin OR ethereum',
+                        'sortBy' => 'publishedAt',
+                        'apiKey' => env('NEWS_API_KEY'),
+                        'pageSize' => 5,
+                    ]);
+                    if ($fallback->successful()) {
+                        $news = $fallback->json()['articles'] ?? [];
+                    }
+                } catch (\Exception $e) {
+                    // Handle error silently
+                }
             }
 
-            return view('user.dashboard', compact('investments', 'totalValue', 'profit', 'cryptos', 'userInvestmentPlans', 'recentTransactions', 'news'));
+            return view('user.dashboard', compact('investments', 'totalValue', 'profit', 'cryptos', 'userInvestmentPlans', 'recentTransactions', 'news', 'portfolioItems', 'performanceRanges', 'minValue', 'maxValue'));
         }
     }
 
