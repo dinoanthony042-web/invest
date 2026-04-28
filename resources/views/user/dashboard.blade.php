@@ -65,13 +65,13 @@
                     </div>
 
                     <!-- User Profile -->
-                    <div class="flex items-center space-x-3">
+                    <div class="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
                         <div class="hidden sm:block text-right">
                             <p class="text-sm font-medium">{{ Auth::user()->name }}</p>
                             <p class="text-xs text-gray-400">Premium Investor</p>
                         </div>
-                        <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                            <span class="text-white font-bold">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
+                        <div class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-white font-bold text-sm">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
                         </div>
                     </div>
                 </div>
@@ -126,10 +126,10 @@
                 </div>
 
                 <!-- MOCK CHART AREA -->
-                <div class="bg-gray-900/50 rounded-xl p-6 border border-gray-700">
-                    <div class="flex justify-between items-center mb-4">
+                <div class="bg-gray-900/50 rounded-xl p-4 sm:p-6 border border-gray-700">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                         <h4 class="font-semibold text-yellow-400">Portfolio Performance</h4>
-                        <div class="flex flex-wrap gap-2">
+                        <div class="flex flex-wrap gap-2 sm:gap-3">
                             <button class="px-3 py-2 bg-yellow-400/20 text-yellow-400 rounded-lg text-sm min-h-[44px]">1D</button>
                             <button class="px-3 py-2 bg-gray-700 text-gray-300 rounded-lg text-sm hover:bg-gray-600 min-h-[44px]">7D</button>
                             <button class="px-3 py-2 bg-gray-700 text-gray-300 rounded-lg text-sm hover:bg-gray-600 min-h-[44px]">1M</button>
@@ -137,13 +137,13 @@
                         </div>
                     </div>
                     <!-- Mock Chart Visualization -->
-                    <div class="h-48 lg:h-64 flex items-end justify-between space-x-1">
+                    <div class="h-56 sm:h-64 lg:h-72 overflow-hidden rounded-xl grid grid-cols-30 gap-1">
                         @for($i = 0; $i < 30; $i++)
                         <div class="bg-gradient-to-t from-yellow-400 to-orange-500 rounded-t w-full"
                              style="height: {{ rand(20, 100) }}%"></div>
                         @endfor
                     </div>
-                    <div class="flex justify-between mt-4 text-xs text-gray-400">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 text-xs sm:text-sm text-gray-400 gap-2">
                         <span>Jan 1</span>
                         <span>Today</span>
                     </div>

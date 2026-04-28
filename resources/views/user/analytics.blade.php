@@ -70,75 +70,86 @@
         <!-- HEADER -->
         <header class="bg-black/50 backdrop-blur-lg border-b border-yellow-400/20 p-4">
             <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-3 sm:space-x-4">
                     <button onclick="toggleSidebar()" class="lg:hidden text-gray-400 hover:text-white">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
                     <div>
-                        <h1 class="text-2xl font-bold text-white">Portfolio Analytics</h1>
-                        <p class="text-sm text-gray-400">Detailed analysis of your investment performance</p>
+                        <h1 class="text-xl sm:text-2xl font-bold text-white">Portfolio Analytics</h1>
+                        <p class="text-xs sm:text-sm text-gray-400">Detailed analysis of your investment performance</p>
+                    </div>
+                </div>
+                
+                <!-- User Profile -->
+                <div class="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
+                    <div class="hidden sm:block text-right">
+                        <p class="text-sm font-medium">{{ Auth::user()->name }}</p>
+                        <p class="text-xs text-gray-400">Premium Investor</p>
+                    </div>
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-white font-bold text-sm">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
                     </div>
                 </div>
             </div>
         </header>
 
         <!-- CONTENT -->
-        <main class="p-6 space-y-8">
+        <main class="p-4 sm:p-6 space-y-6 sm:space-y-8">
             <!-- DAILY PROFITS CHART -->
-            <div class="bg-black/50 backdrop-blur-lg rounded-xl border border-yellow-400/20 p-6">
-                <h2 class="text-xl font-bold text-white mb-4">Daily Profit Trends</h2>
-                <div class="h-64">
+            <div class="bg-black/50 backdrop-blur-lg rounded-xl border border-yellow-400/20 p-4 sm:p-6">
+                <h2 class="text-lg sm:text-xl font-bold text-white mb-4">Daily Profit Trends</h2>
+                <div class="h-48 sm:h-64">
                     <canvas id="profitChart"></canvas>
                 </div>
             </div>
 
             <!-- ANALYTICS CARDS -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-black/50 backdrop-blur-lg rounded-xl border border-yellow-400/20 p-6">
-                    <div class="flex items-center justify-between">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <div class="bg-black/50 backdrop-blur-lg rounded-xl border border-yellow-400/20 p-4 sm:p-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
                         <div>
                             <p class="text-sm text-gray-400">Total Investments</p>
                             <p class="text-2xl font-bold text-white">{{ count($dailyProfits) }}</p>
                         </div>
-                        <svg class="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-6 sm:w-8 h-6 sm:h-8 text-yellow-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                         </svg>
                     </div>
                 </div>
 
-                <div class="bg-black/50 backdrop-blur-lg rounded-xl border border-yellow-400/20 p-6">
-                    <div class="flex items-center justify-between">
+                <div class="bg-black/50 backdrop-blur-lg rounded-xl border border-yellow-400/20 p-4 sm:p-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
                         <div>
                             <p class="text-sm text-gray-400">Avg Daily Profit</p>
                             <p class="text-2xl font-bold text-green-400">${{ number_format(array_sum(array_column($dailyProfits, 'profit')) / count($dailyProfits), 2) }}</p>
                         </div>
-                        <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-6 sm:w-8 h-6 sm:h-8 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                         </svg>
                     </div>
                 </div>
 
-                <div class="bg-black/50 backdrop-blur-lg rounded-xl border border-yellow-400/20 p-6">
-                    <div class="flex items-center justify-between">
+                <div class="bg-black/50 backdrop-blur-lg rounded-xl border border-yellow-400/20 p-4 sm:p-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
                         <div>
                             <p class="text-sm text-gray-400">Best Day</p>
                             <p class="text-2xl font-bold text-white">${{ number_format(max(array_column($dailyProfits, 'profit')), 2) }}</p>
                         </div>
-                        <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-6 sm:w-8 h-6 sm:h-8 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
                 </div>
 
-                <div class="bg-black/50 backdrop-blur-lg rounded-xl border border-yellow-400/20 p-6">
-                    <div class="flex items-center justify-between">
+                <div class="bg-black/50 backdrop-blur-lg rounded-xl border border-yellow-400/20 p-4 sm:p-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
                         <div>
                             <p class="text-sm text-gray-400">Worst Day</p>
                             <p class="text-2xl font-bold text-red-400">${{ number_format(min(array_column($dailyProfits, 'profit')), 2) }}</p>
                         </div>
-                        <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-6 sm:w-8 h-6 sm:h-8 text-red-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
@@ -147,20 +158,20 @@
         </main>
 
         <!-- FOOTER -->
-        <footer class="lg:ml-64 bg-black/50 backdrop-blur-lg border-t border-yellow-400/20 mt-16">
-            <div class="px-4 py-8">
-                <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <div class="flex items-center space-x-4">
-                        <div class="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
-                            <span class="text-black font-bold">V</span>
+        <footer class="lg:ml-64 bg-black/50 backdrop-blur-lg border-t border-yellow-400/20 mt-12 sm:mt-16">
+            <div class="px-4 sm:px-6 py-6 sm:py-8">
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
+                    <div class="flex items-center space-x-3 sm:space-x-4">
+                        <div class="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <span class="text-black font-bold text-xs sm:text-sm">V</span>
                         </div>
                         <div class="text-center sm:text-left">
-                            <p class="text-sm text-gray-400">© 2026 BridgeField Capital Group. All rights reserved.</p>
+                            <p class="text-xs sm:text-sm text-gray-400">© 2026 BridgeField Capital Group. All rights reserved.</p>
                             <p class="text-xs text-gray-500">Professional Crypto Investment Platform</p>
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap justify-center sm:justify-end space-x-6 text-sm text-gray-400 gap-4">
+                    <div class="flex flex-wrap justify-center sm:justify-end space-x-4 sm:space-x-6 text-xs sm:text-sm text-gray-400 gap-2 sm:gap-4">
                         <a href="#" class="hover:text-yellow-400 transition-colors">Privacy</a>
                         <a href="#" class="hover:text-yellow-400 transition-colors">Terms</a>
                         <a href="#" class="hover:text-yellow-400 transition-colors">Support</a>

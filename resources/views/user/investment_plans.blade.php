@@ -59,13 +59,13 @@
                     </div>
 
                     <!-- User Profile -->
-                    <div class="flex items-center space-x-3">
+                    <div class="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
                         <div class="hidden sm:block text-right">
                             <p class="text-sm font-medium">{{ Auth::user()->name }}</p>
                             <p class="text-xs text-gray-400">Premium Investor</p>
                         </div>
-                        <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                            <span class="text-white font-bold">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
+                        <div class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-white font-bold text-sm">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
                         </div>
                     </div>
                 </div>
@@ -73,42 +73,33 @@
         </header>
 
         <!-- Breadcrumb -->
-        <nav class="px-4 py-3 bg-gray-900/50 border-b border-gray-700">
-            <ol class="flex items-center space-x-2 text-sm">
+        <nav class="px-4 sm:px-6 py-2 sm:py-3 bg-gray-900/50 border-b border-gray-700">
+            <ol class="flex items-center space-x-2 text-xs sm:text-sm">
                 <li><a href="{{ route('dashboard') }}" class="text-yellow-400 hover:text-yellow-300">Dashboard</a></li>
                 <li class="text-gray-400">/</li>
                 <li class="text-white">Investment Plans</li>
             </ol>
         </nav>
-                        📈 Invest
-                    </a>
-                    <a href="#" class="flex-1 px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg transition-colors">
-                        ⚙️ Settings
-                    </a>
-                </div>
-            </nav>
-        </div>
-    </header>
 
     <!-- MAIN CONTENT -->
-    <main class="max-w-7xl mx-auto px-6 py-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
 
         <!-- PAGE HEADER -->
-        <div class="mb-12">
-            <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+        <div class="mb-8 sm:mb-12">
+            <h1 class="text-3xl sm:text-4xl font-bold mb-2 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
                 Investment Plans
             </h1>
-            <p class="text-gray-400 text-lg">Choose from our carefully designed investment plans to grow your wealth</p>
+            <p class="text-gray-400 text-base sm:text-lg">Choose from our carefully designed investment plans to grow your wealth</p>
         </div>
 
         <!-- WALLET STATUS -->
-        <div class="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl p-6 mb-8 text-black shadow-lg">
-            <div class="flex justify-between items-center">
+        <div class="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl p-4 sm:p-6 mb-8 text-black shadow-lg">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                     <p class="text-sm font-medium opacity-90">Available Balance</p>
-                    <h2 class="text-4xl font-bold">${{ number_format(Auth::user()->wallet_balance ?? 0, 2) }}</h2>
+                    <h2 class="text-3xl sm:text-4xl font-bold">${{ number_format(Auth::user()->wallet_balance ?? 0, 2) }}</h2>
                 </div>
-                <a href="{{ route('deposit') }}" class="px-6 py-3 bg-black text-yellow-400 rounded-lg font-semibold hover:bg-gray-900 transition-colors">
+                <a href="{{ route('deposit') }}" class="w-full sm:w-auto px-4 sm:px-6 py-3 bg-black text-yellow-400 rounded-lg font-semibold hover:bg-gray-900 transition-colors text-center">
                     💰 Deposit More Funds
                 </a>
             </div>
@@ -130,9 +121,9 @@
         @endif
 
         <!-- INVESTMENT PLANS GRID -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             @foreach($plans as $plan)
-            <div class="bg-gray-800 rounded-2xl border border-yellow-400/20 p-8 shadow-lg hover:shadow-2xl hover:border-yellow-400/40 transition-all transform hover:scale-105">
+            <div class="bg-gray-800 rounded-2xl border border-yellow-400/20 p-6 sm:p-8 shadow-lg hover:shadow-2xl hover:border-yellow-400/40 transition-all transform hover:scale-105">
                 <div class="mb-6">
                     <h3 class="text-2xl font-bold text-yellow-400 mb-2">{{ $plan->name }}</h3>
                     <p class="text-gray-400 text-sm">{{ $plan->description }}</p>
@@ -188,20 +179,20 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="lg:ml-64 bg-black/50 backdrop-blur-lg border-t border-yellow-400/20 mt-16">
-        <div class="px-4 py-8">
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-                <div class="flex items-center space-x-4">
-                    <div class="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
-                        <span class="text-black font-bold">V</span>
+    <footer class="lg:ml-64 bg-black/50 backdrop-blur-lg border-t border-yellow-400/20 mt-12 sm:mt-16">
+        <div class="px-4 sm:px-6 py-6 sm:py-8">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <div class="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <span class="text-black font-bold text-xs sm:text-sm">V</span>
                     </div>
                     <div class="text-center sm:text-left">
-                        <p class="text-sm text-gray-400">© 2026 BridgeField Capital Group. All rights reserved.</p>
+                        <p class="text-xs sm:text-sm text-gray-400">© 2026 BridgeField Capital Group. All rights reserved.</p>
                         <p class="text-xs text-gray-500">Professional Crypto Investment Platform</p>
                     </div>
                 </div>
 
-                <div class="flex flex-wrap justify-center sm:justify-end space-x-6 text-sm text-gray-400 gap-4">
+                    <div class="flex flex-wrap justify-center sm:justify-end space-x-4 sm:space-x-6 text-xs sm:text-sm text-gray-400 gap-2 sm:gap-4">
                     <a href="#" class="hover:text-yellow-400 transition-colors">Privacy</a>
                     <a href="#" class="hover:text-yellow-400 transition-colors">Terms</a>
                     <a href="#" class="hover:text-yellow-400 transition-colors">Support</a>
