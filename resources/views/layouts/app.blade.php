@@ -117,5 +117,24 @@
 </head>
 <body>
     @yield('content')
+
+    <script>
+        document.addEventListener('click', (event) => {
+            const toggle = document.querySelector('[data-account-toggle]');
+            const menu = document.querySelector('[data-account-menu]');
+            if (!toggle || !menu) {
+                return;
+            }
+
+            if (toggle.contains(event.target)) {
+                menu.classList.toggle('hidden');
+                return;
+            }
+
+            if (!menu.contains(event.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+    </script>
 </body>
 </html>

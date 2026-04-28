@@ -16,19 +16,7 @@
             <p class="text-sm text-gray-300">Welcome back, {{ Auth::user()->name }}</p>
         </div>
 
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button class="px-4 py-2 rounded-lg bg-red-500 text-white font-semibold hover:bg-red-600 transition">
-                Logout
-            </button>
-        </form>
-    </div>
-
-    <!-- MAIN GRID -->
-    <div class="p-6 grid grid-cols-12 gap-6">
-
-        <!-- LEFT: STATS PANEL -->
-        <div class="col-span-12 lg:col-span-8">
+        @include('components.user-profile-dropdown')
 
             <!-- OVERVIEW CARDS -->
             <div class="grid grid-cols-3 gap-4 mb-6">

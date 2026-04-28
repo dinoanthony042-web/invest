@@ -64,16 +64,7 @@
                         <h1 class="text-xl font-bold text-yellow-400">Dashboard</h1>
                     </div>
 
-                    <!-- User Profile -->
-                    <div class="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
-                        <div class="hidden sm:block text-right">
-                            <p class="text-sm font-medium">{{ Auth::user()->name }}</p>
-                            <p class="text-xs text-gray-400">Premium Investor</p>
-                        </div>
-                        <div class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
-                            <span class="text-white font-bold text-sm">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
-                        </div>
-                    </div>
+                    @include('components.user-profile-dropdown')
                 </div>
             </div>
         </header>
