@@ -71,7 +71,7 @@ class DashboardController extends Controller
                 ];
             });
 
-            $investments = $user->userInvestments()->with('investmentPlan')->latest()->take(5)->get()->map(function ($investment) {
+            $investmentTransactions = $user->userInvestments()->with('investmentPlan')->latest()->take(5)->get()->map(function ($investment) {
                 return [
                     'type' => 'investment',
                     'icon' => '📈',
@@ -84,7 +84,7 @@ class DashboardController extends Controller
                 ];
             });
 
-            $recentTransactions = $deposits->merge($investments)->sortByDesc('date')->take(5);
+            $recentTransactions = $deposits->merge($investmentTransactions)->sortByDesc('date')->take(5);
 
             // Get crypto news
             $news = [];
