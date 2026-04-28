@@ -29,6 +29,9 @@ class DashboardController extends Controller
         } else {
             $user = Auth::user();
             $investments = $user->investments()->with('cryptoCurrency')->get();
+            
+            // Get active investment plans
+            $userInvestmentPlans = $user->userInvestments()->with('investmentPlan')->where('status', 'active')->get();
 
             // Calculate total portfolio value including investments and plans
             $totalValue = 0;
@@ -53,9 +56,6 @@ class DashboardController extends Controller
             $profit = $totalValue - $totalCost;
 
             $cryptos = CryptoCurrency::all();
-            
-            // Get active investment plans
-            $userInvestmentPlans = $user->userInvestments()->with('investmentPlan')->where('status', 'active')->get();
 
             // Get recent transactions
             $deposits = $user->depositRequests()->latest()->take(5)->get()->map(function ($deposit) {
