@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Http;
 use App\Models\Investment;
 use App\Models\CryptoCurrency;
 use App\Models\DepositRequest;
@@ -29,17 +30,26 @@ class DashboardController extends Controller
             $user = Auth::user();
             $investments = $user->investments()->with('cryptoCurrency')->get();
 
-            // Calculate total portfolio value
+            // Calculate total portfolio value including investments and plans
             $totalValue = 0;
-            foreach ($investments as $investment) {
-                $totalValue += $investment->amount * $investment->cryptoCurrency->current_price;
-            }
-
-            // Calculate profit/loss
             $totalCost = 0;
             foreach ($investments as $investment) {
-                $totalCost += $investment->amount * $investment->purchase_price;
+                $currentValue = $investment->amount * $investment->cryptoCurrency->current_price;
+                $cost = $investment->amount * $investment->purchase_price;
+                $totalValue += $currentValue;
+                $totalCost += $cost;
             }
+
+            // Include investment plans value
+            foreach ($userInvestmentPlans as $plan) {
+                $daysElapsed = $plan->created_at->diffInDays(now());
+                $totalDays = $plan->investmentPlan->duration_months * 30; // approximate
+                $progress = min($daysElapsed / $totalDays, 1);
+                $currentValue = $plan->amount + ($plan->expected_return * $progress);
+                $totalValue += $currentValue;
+                $totalCost += $plan->amount;
+            }
+
             $profit = $totalValue - $totalCost;
 
             $cryptos = CryptoCurrency::all();
@@ -47,7 +57,52 @@ class DashboardController extends Controller
             // Get active investment plans
             $userInvestmentPlans = $user->userInvestments()->with('investmentPlan')->where('status', 'active')->get();
 
-            return view('user.dashboard', compact('investments', 'totalValue', 'profit', 'cryptos', 'userInvestmentPlans'));
+            // Get recent transactions
+            $deposits = $user->depositRequests()->latest()->take(5)->get()->map(function ($deposit) {
+                return [
+                    'type' => 'deposit',
+                    'icon' => '💰',
+                    'color' => 'green',
+                    'title' => 'Deposit',
+                    'description' => ucfirst($deposit->network) . ' Transfer',
+                    'amount' => $deposit->amount,
+                    'date' => $deposit->created_at,
+                    'status' => $deposit->status,
+                ];
+            });
+
+            $investments = $user->userInvestments()->with('investmentPlan')->latest()->take(5)->get()->map(function ($investment) {
+                return [
+                    'type' => 'investment',
+                    'icon' => '📈',
+                    'color' => 'blue',
+                    'title' => $investment->investmentPlan->name,
+                    'description' => 'Investment Plan Purchase',
+                    'amount' => -$investment->amount,
+                    'date' => $investment->created_at,
+                    'status' => $investment->status,
+                ];
+            });
+
+            $recentTransactions = $deposits->merge($investments)->sortByDesc('date')->take(5);
+
+            // Get crypto news
+            $news = [];
+            try {
+                $response = Http::get('https://newsapi.org/v2/everything', [
+                    'q' => 'cryptocurrency OR bitcoin OR ethereum',
+                    'sortBy' => 'publishedAt',
+                    'apiKey' => env('NEWS_API_KEY'),
+                    'pageSize' => 5,
+                ]);
+                if ($response->successful()) {
+                    $news = $response->json()['articles'] ?? [];
+                }
+            } catch (\Exception $e) {
+                // Handle error silently
+            }
+
+            return view('user.dashboard', compact('investments', 'totalValue', 'profit', 'cryptos', 'userInvestmentPlans', 'recentTransactions', 'news'));
         }
     }
 
@@ -158,5 +213,45 @@ class DashboardController extends Controller
         ]);
 
         return back()->with('success', 'Investment successful. Your plan is now active.');
+    }
+
+    public function analytics()
+    {
+        $user = auth()->user();
+        
+        // Get user's investments and plans
+        $investments = Investment::where('user_id', $user->id)->with('cryptoCurrency')->get();
+        $userInvestmentPlans = UserInvestment::where('user_id', $user->id)->with('investmentPlan')->get();
+        
+        // Calculate daily profits (simplified - assuming linear growth)
+        $dailyProfits = [];
+        for ($i = 30; $i >= 0; $i--) {
+            $date = now()->subDays($i);
+            $profit = 0;
+            
+            foreach ($investments as $investment) {
+                $daysHeld = $investment->created_at->diffInDays($date);
+                if ($daysHeld > 0) {
+                    $currentValue = $investment->amount * $investment->cryptoCurrency->current_price;
+                    $cost = $investment->amount * $investment->purchase_price;
+                    $profit += ($currentValue - $cost) * ($daysHeld / 365); // approximate daily
+                }
+            }
+            
+            foreach ($userInvestmentPlans as $plan) {
+                $daysElapsed = $plan->created_at->diffInDays($date);
+                if ($daysElapsed > 0) {
+                    $progress = min($daysElapsed / ($plan->investmentPlan->duration_months * 30), 1);
+                    $profit += $plan->expected_return * $progress * ($daysElapsed / ($plan->investmentPlan->duration_months * 30));
+                }
+            }
+            
+            $dailyProfits[] = [
+                'date' => $date->format('M d'),
+                'profit' => $profit
+            ];
+        }
+        
+        return view('user.analytics', compact('dailyProfits'));
     }
 }

@@ -190,9 +190,9 @@
                         <a href="{{ route('investment.plans') }}" class="block w-full bg-gray-700 text-white font-semibold py-3 px-4 rounded-xl hover:bg-gray-600 transition-colors min-h-[44px] flex items-center justify-center">
                             💼 Buy Investment Plans
                         </a>
-                        <button class="w-full bg-gray-700 text-white font-semibold py-3 px-4 rounded-xl hover:bg-gray-600 transition-colors min-h-[44px]">
+                        <a href="{{ route('analytics') }}" class="block w-full bg-gray-700 text-white font-semibold py-3 px-4 rounded-xl hover:bg-gray-600 transition-colors min-h-[44px] flex items-center justify-center">
                             📊 View Analytics
-                        </button>
+                        </a>
                         <button class="w-full bg-gray-700 text-white font-semibold py-3 px-4 rounded-xl hover:bg-gray-600 transition-colors min-h-[44px]">
                             ⚙️ Settings
                         </button>
@@ -342,8 +342,18 @@
                             </div>
 
                             <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-400">Expected Return</span>
-                                <span class="font-bold text-green-400">+${{ number_format($userPlan->expected_return, 2) }}</span>
+                                <span class="text-sm text-gray-400">Current Value</span>
+                                <span class="font-bold text-green-400">${{ number_format($userPlan->amount + ($userPlan->expected_return * min($userPlan->created_at->diffInDays(now()) / ($userPlan->investmentPlan->duration_months * 30), 1)), 2) }}</span>
+                            </div>
+
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-400">Profit</span>
+                                <span class="font-bold text-green-400">+${{ number_format($userPlan->expected_return * min($userPlan->created_at->diffInDays(now()) / ($userPlan->investmentPlan->duration_months * 30), 1), 2) }}</span>
+                            </div>
+
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-400">Days Remaining</span>
+                                <span class="font-bold text-white">{{ max(($userPlan->investmentPlan->duration_months * 30) - $userPlan->created_at->diffInDays(now()), 0) }} days</span>
                             </div>
 
                             <div class="flex justify-between items-center">
@@ -380,53 +390,27 @@
 
                 <div class="p-6">
                     <div class="space-y-4">
+                        @forelse($recentTransactions as $transaction)
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-900/50 rounded-xl gap-4">
                             <div class="flex items-center space-x-4">
-                                <div class="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <span class="text-green-400 text-lg">💰</span>
+                                <div class="w-10 h-10 bg-{{ $transaction['color'] }}-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <span class="text-{{ $transaction['color'] }}-400 text-lg">{{ $transaction['icon'] }}</span>
                                 </div>
                                 <div class="min-w-0">
-                                    <p class="font-medium text-white">Deposit</p>
-                                    <p class="text-sm text-gray-400">Bank Transfer</p>
+                                    <p class="font-medium text-white">{{ $transaction['title'] }}</p>
+                                    <p class="text-sm text-gray-400">{{ $transaction['description'] }}</p>
                                 </div>
                             </div>
                             <div class="text-right sm:text-right">
-                                <p class="font-bold text-green-400">+$5,000.00</p>
-                                <p class="text-sm text-gray-400">2 hours ago</p>
+                                <p class="font-bold text-{{ $transaction['amount'] >= 0 ? 'green' : 'red' }}-400">{{ $transaction['amount'] >= 0 ? '+' : '' }}${{ number_format(abs($transaction['amount']), 2) }}</p>
+                                <p class="text-sm text-gray-400">{{ $transaction['date']->diffForHumans() }}</p>
                             </div>
                         </div>
-
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-900/50 rounded-xl gap-4">
-                            <div class="flex items-center space-x-4">
-                                <div class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <span class="text-blue-400 text-lg">₿</span>
-                                </div>
-                                <div class="min-w-0">
-                                    <p class="font-medium text-white">Bitcoin Purchase</p>
-                                    <p class="text-sm text-gray-400">0.25 BTC @ $64,000</p>
-                                </div>
-                            </div>
-                            <div class="text-right sm:text-right">
-                                <p class="font-bold text-blue-400">-$16,000.00</p>
-                                <p class="text-sm text-gray-400">1 day ago</p>
-                            </div>
+                        @empty
+                        <div class="text-center py-8">
+                            <p class="text-gray-400">No recent transactions</p>
                         </div>
-
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-900/50 rounded-xl gap-4">
-                            <div class="flex items-center space-x-4">
-                                <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <span class="text-purple-400 text-lg">Ξ</span>
-                                </div>
-                                <div class="min-w-0">
-                                    <p class="font-medium text-white">Ethereum Purchase</p>
-                                    <p class="text-sm text-gray-400">2.0 ETH @ $3,200</p>
-                                </div>
-                            </div>
-                            <div class="text-right sm:text-right">
-                                <p class="font-bold text-purple-400">-$6,400.00</p>
-                                <p class="text-sm text-gray-400">3 days ago</p>
-                            </div>
-                        </div>
+                        @endforelse
                     </div>
                 </div>
             </div>
@@ -439,35 +423,25 @@
                 </div>
 
                 <div class="p-6 space-y-4">
+                    @forelse($news as $article)
                     <div class="p-4 bg-yellow-400/10 border border-yellow-400/20 rounded-xl">
                         <div class="flex items-start space-x-3">
                             <div class="w-2 h-2 bg-yellow-400 rounded-full mt-2 flex-shrink-0"></div>
                             <div class="min-w-0">
-                                <p class="text-sm font-medium text-yellow-400">Bitcoin ETF Approval</p>
-                                <p class="text-xs text-gray-400 mt-1">SEC approves spot Bitcoin ETF applications</p>
+                                <p class="text-sm font-medium text-yellow-400">{{ $article['title'] ?? 'Crypto News' }}</p>
+                                <p class="text-xs text-gray-400 mt-1">{{ Str::limit($article['description'] ?? '', 100) }}</p>
+                                @if(isset($article['url']))
+                                <a href="{{ $article['url'] }}" target="_blank" class="text-xs text-yellow-400 hover:text-yellow-300 mt-1 inline-block">Read more →</a>
+                                @endif
                             </div>
                         </div>
                     </div>
-
-                    <div class="p-4 bg-blue-400/10 border border-blue-400/20 rounded-xl">
-                        <div class="flex items-start space-x-3">
-                            <div class="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></div>
-                            <div class="min-w-0">
-                                <p class="text-sm font-medium text-blue-400">Ethereum Upgrade</p>
-                                <p class="text-xs text-gray-400 mt-1">Dencun upgrade successfully deployed</p>
-                            </div>
-                        </div>
+                    @empty
+                    <div class="text-center py-8">
+                        <p class="text-gray-400">No news available</p>
+                        <p class="text-xs text-gray-500 mt-1">Add NEWS_API_KEY to .env for real updates</p>
                     </div>
-
-                    <div class="p-4 bg-green-400/10 border border-green-400/20 rounded-xl">
-                        <div class="flex items-start space-x-3">
-                            <div class="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></div>
-                            <div class="min-w-0">
-                                <p class="text-sm font-medium text-green-400">Market Rally</p>
-                                <p class="text-xs text-gray-400 mt-1">Crypto market up 5% in 24 hours</p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
             </div>
         </div>

@@ -49,6 +49,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 // Protected routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/analytics', [DashboardController::class, 'analytics'])->name('analytics');
     Route::get('/deposit', [DashboardController::class, 'deposit'])->name('deposit');
     Route::post('/deposit/request', [DashboardController::class, 'submitDepositRequest'])->name('deposit.submit');
     Route::get('/deposit/confirmation/{deposit}', [DashboardController::class, 'depositConfirmation'])->name('deposit.confirmation');
