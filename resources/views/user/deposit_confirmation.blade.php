@@ -68,8 +68,10 @@
                             </div>
                         </div>
                     </div>
-
-                    <a href="{{ route('dashboard') }}" class="block rounded-3xl bg-yellow-400 px-6 py-4 text-center font-semibold text-black hover:bg-yellow-300 transition">Back to Dashboard</a>
+    <a href="{{ route('dashboard') }}"
+   class="block rounded-3xl bg-gradient-to-r from-yellow-400 to-orange-500 px-6 py-4 text-center font-semibold text-gray-900 hover:from-yellow-500 hover:to-orange-600 transition shadow-lg">
+   Back to Dashboard
+</a>
                 </div>
             </div>
         </div>
