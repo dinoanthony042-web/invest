@@ -6,7 +6,6 @@
     <link rel="icon" type="image/png" href="{{ asset('mylogo1.png') }}">
     <title>{{ config('app.name', 'Bridgefield Capital Group') }}</title>
     @vite('resources/css/app.css')
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #fbbf24;
@@ -117,10 +116,5 @@
 </head>
 <body>
 
-    <main>
-        @yield('content')
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
