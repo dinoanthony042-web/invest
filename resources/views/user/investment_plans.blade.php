@@ -170,8 +170,8 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="lg:ml-64 bg-black/50 backdrop-blur-lg border-t border-yellow-400/20 mt-12 sm:mt-16">
-        <div class="px-4 sm:px-6 py-6 sm:py-8">
+    <footer class="bg-black/50 backdrop-blur-lg border-t border-yellow-400/20 mt-12 sm:mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
             <div class="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
                 <div class="flex items-center space-x-3 sm:space-x-4">
                     <div class="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
