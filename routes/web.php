@@ -22,6 +22,9 @@ Route::get('/about', function () {
 });
 
 // Auth routes
+Route::get('/test', function() {
+    return 'Test route works';
+});
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
