@@ -621,16 +621,18 @@
 </div>
 
 <script>
+let selectedAmount = 0;
+let selectedNetwork = null;
+let selectedWalletAddress = null;
+
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebar-overlay');
     
     if (sidebar.classList.contains('-translate-x-full')) {
-        // Open sidebar
         sidebar.classList.remove('-translate-x-full');
         overlay.classList.remove('hidden');
     } else {
-        // Close sidebar
         sidebar.classList.add('-translate-x-full');
         overlay.classList.add('hidden');
     }
@@ -644,40 +646,32 @@ function closeSidebar() {
     overlay.classList.add('hidden');
 }
 
-// Close sidebar when clicking on a nav link (mobile)
 document.querySelectorAll('#sidebar a').forEach(link => {
     link.addEventListener('click', () => {
-        if (window.innerWidth < 1024) { // lg breakpoint
+        if (window.innerWidth < 1024) {
             closeSidebar();
         }
     });
 });
 
-// Handle window resize
 window.addEventListener('resize', () => {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebar-overlay');
     
     if (window.innerWidth >= 1024) {
-        // Desktop: ensure sidebar is visible
         sidebar.classList.remove('-translate-x-full');
         overlay.classList.add('hidden');
     } else {
-        // Mobile: ensure sidebar is hidden initially
         sidebar.classList.add('-translate-x-full');
         overlay.classList.add('hidden');
     }
 });
 
-// Deposit functionality
-let selectedAmount = 0;
-let selectedNetwork = '';
-
 function validateAmount(input) {
-    const amount = parseFloat(input.value);
+    const value = parseFloat(input.value);
     const button = document.querySelector('button[onclick="setDepositAmount()"]');
-    
-    if (amount >= 10) {
+
+    if (value >= 10) {
         button.disabled = false;
         button.classList.remove('opacity-50', 'cursor-not-allowed');
         button.classList.add('hover:scale-105');
@@ -687,102 +681,6 @@ function validateAmount(input) {
         button.classList.remove('hover:scale-105');
     }
 }
-
-function setDepositAmount() {
-    const input = document.getElementById('deposit-amount');
-    selectedAmount = parseFloat(input.value);
-    
-    document.getElementById('selected-amount').textContent = '$' + selectedAmount.toFixed(2);
-    document.getElementById('amount-display').classList.remove('hidden');
-    document.getElementById('network-selection').classList.remove('hidden');
-    
-    // Update all amount displays
-    document.getElementById('btc-amount-display').textContent = '$' + selectedAmount.toFixed(2);
-    document.getElementById('eth-amount-display').textContent = '$' + selectedAmount.toFixed(2);
-    document.getElementById('usdt-trc20-amount-display').textContent = '$' + selectedAmount.toFixed(2);
-    document.getElementById('usdt-erc20-amount-display').textContent = '$' + selectedAmount.toFixed(2);
-    document.getElementById('bnb-amount-display').textContent = '$' + selectedAmount.toFixed(2);
-    
-    // Scroll to network selection
-    document.getElementById('network-selection').scrollIntoView({ behavior: 'smooth' });
-}
-
-function resetAmount() {
-    selectedAmount = 0;
-    document.getElementById('deposit-amount').value = '';
-    document.getElementById('amount-display').classList.add('hidden');
-    document.getElementById('network-selection').classList.add('hidden');
-    
-    const button = document.querySelector('button[onclick="setDepositAmount()"]');
-    button.disabled = true;
-    button.classList.add('opacity-50', 'cursor-not-allowed');
-    button.classList.remove('hover:scale-105');
-}
-
-function selectNetwork(network) {
-    selectedNetwork = network;
-    
-    // Update tabs
-    document.querySelectorAll('.network-tab').forEach(tab => {
-        tab.classList.remove('active', 'bg-yellow-400', 'text-black');
-        tab.classList.add('bg-gray-700', 'text-gray-300');
-    });
-    
-    document.getElementById(network + '-tab').classList.add('active', 'bg-yellow-400', 'text-black');
-    document.getElementById(network + '-tab').classList.remove('bg-gray-700', 'text-gray-300');
-    
-    // Show selected wallet
-    document.querySelectorAll('.wallet-card').forEach(card => {
-        card.classList.add('hidden');
-    });
-    
-    document.getElementById(network + '-wallet').classList.remove('hidden');
-    
-    // Enable confirm button
-    const confirmBtn = document.getElementById('confirm-deposit-btn');
-    confirmBtn.disabled = false;
-    confirmBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-}
-
-function copyToClipboard(elementId) {
-    const element = document.getElementById(elementId);
-    element.select();
-    document.execCommand('copy');
-    
-    // Visual feedback
-    const button = document.getElementById(elementId.replace('-address', '-copy-btn'));
-    const originalText = button.textContent;
-    button.textContent = '✅ Copied!';
-    button.classList.add('bg-green-500');
-    button.classList.remove('bg-yellow-400', 'hover:bg-yellow-500');
-    
-    setTimeout(() => {
-        button.textContent = originalText;
-        button.classList.remove('bg-green-500');
-        button.classList.add('bg-yellow-400', 'hover:bg-yellow-500');
-    }, 2000);
-}
-
-function submitDepositRequest() {
-    if (!selectedAmount || !selectedNetwork) {
-        alert('Please select an amount and network first.');
-        return;
-    }
-    
-    // Set form values
-    document.getElementById('deposit-amount-hidden').value = selectedAmount;
-    document.getElementById('deposit-network-hidden').value = selectedNetwork;
-    
-    // Get wallet address based on network
-    const addressElement = document.getElementById(selectedNetwork + '-address');
-    document.getElementById('deposit-wallet-hidden').value = addressElement.value;
-    
-    // Submit form
-    document.getElementById('deposit-request-form').submit();
-}
-let selectedAmount = 0;
-let selectedNetwork = null;
-let selectedWalletAddress = null;
 
 function setDepositAmount() {
     const amountInput = document.getElementById('deposit-amount');
@@ -796,11 +694,9 @@ function setDepositAmount() {
     selectedAmount = amount;
     document.getElementById('deposit-amount-hidden').value = amount;
 
-    // Update display
     document.getElementById('selected-amount').textContent = '$' + amount.toFixed(2);
     document.getElementById('amount-display').classList.remove('hidden');
 
-    // Update all wallet amount displays
     const networks = ['btc', 'eth', 'usdt-trc20', 'usdt-erc20', 'bnb'];
     networks.forEach(network => {
         const displayElement = document.getElementById(network + '-amount-display');
@@ -809,28 +705,8 @@ function setDepositAmount() {
         }
     });
 
-    // Show network selection
     document.getElementById('network-selection').classList.remove('hidden');
-
-    // Scroll to network selection
     document.getElementById('network-selection').scrollIntoView({ behavior: 'smooth' });
-
-    // Update instructions - highlight step 2
-    updateInstructions(2);
-}
-
-function submitDepositRequest() {
-    if (!selectedAmount || !selectedNetwork || !selectedWalletAddress) {
-        alert('Please select a network and confirm your wallet address before submitting.');
-        return;
-    }
-
-    document.getElementById('deposit-amount-hidden').value = selectedAmount;
-    document.getElementById('deposit-network-hidden').value = selectedNetwork;
-    document.getElementById('deposit-wallet-hidden').value = selectedWalletAddress;
-
-    updateInstructions(5);
-    document.getElementById('deposit-request-form').submit();
 }
 
 function resetAmount() {
@@ -845,10 +721,11 @@ function resetAmount() {
     document.getElementById('network-selection').classList.add('hidden');
 
     const submitButton = document.getElementById('confirm-deposit-btn');
-    submitButton.disabled = true;
-    submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+    }
 
-    // Reset all wallet amount displays
     const networks = ['btc', 'eth', 'usdt-trc20', 'usdt-erc20', 'bnb'];
     networks.forEach(network => {
         const displayElement = document.getElementById(network + '-amount-display');
@@ -856,32 +733,23 @@ function resetAmount() {
             displayElement.textContent = '$0.00';
         }
     });
-
-    // Reset instructions
-    updateInstructions(1);
 }
 
 function selectNetwork(network) {
-    // Hide all wallet cards
     document.querySelectorAll('.wallet-card').forEach(card => {
         card.classList.add('hidden');
     });
 
-    // Remove active class from all tabs
     document.querySelectorAll('.network-tab').forEach(tab => {
-        tab.classList.remove('active');
-        tab.classList.remove('bg-yellow-400', 'text-black');
+        tab.classList.remove('active', 'bg-yellow-400', 'text-black');
         tab.classList.add('bg-gray-700', 'text-gray-300');
     });
 
-    // Show selected wallet card
     document.getElementById(network + '-wallet').classList.remove('hidden');
 
-    // Add active class to selected tab
     const activeTab = document.getElementById(network + '-tab');
-    activeTab.classList.add('active');
+    activeTab.classList.add('active', 'bg-yellow-400', 'text-black');
     activeTab.classList.remove('bg-gray-700', 'text-gray-300');
-    activeTab.classList.add('bg-yellow-400', 'text-black');
 
     selectedNetwork = network;
     const walletAddresses = {
@@ -897,60 +765,22 @@ function selectNetwork(network) {
     document.getElementById('deposit-wallet-hidden').value = selectedWalletAddress;
 
     const submitButton = document.getElementById('confirm-deposit-btn');
-    submitButton.disabled = false;
-    submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
-
-    // Update instructions - highlight step 3
-    updateInstructions(3);
-}
-
-function updateInstructions(activeStep) {
-    const steps = document.querySelectorAll('.step-circle');
-    const stepTexts = document.querySelectorAll('.step-text');
-
-    steps.forEach((step, index) => {
-        const stepNumber = index + 1;
-        if (stepNumber === activeStep) {
-            step.classList.remove('bg-gray-600');
-            step.classList.add('bg-yellow-400');
-            step.classList.remove('text-white');
-            step.classList.add('text-black');
-            stepTexts[index].classList.remove('text-gray-400');
-            stepTexts[index].classList.add('text-white');
-        } else if (stepNumber < activeStep) {
-            step.classList.remove('bg-gray-600', 'bg-yellow-400');
-            step.classList.add('bg-green-500');
-            step.classList.remove('text-white');
-            step.classList.add('text-white');
-            stepTexts[index].classList.remove('text-gray-400');
-            stepTexts[index].classList.add('text-green-400');
-        } else {
-            step.classList.remove('bg-yellow-400', 'bg-green-500');
-            step.classList.add('bg-gray-600');
-            step.classList.remove('text-black');
-            step.classList.add('text-white');
-            stepTexts[index].classList.remove('text-white', 'text-green-400');
-            stepTexts[index].classList.add('text-gray-400');
-        }
-    });
+    if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+    }
 }
 
 function copyToClipboard(elementId) {
     const element = document.getElementById(elementId);
     const button = document.getElementById(elementId.replace('-address', '-copy-btn'));
 
-    // Copy to clipboard
     navigator.clipboard.writeText(element.value).then(() => {
-        // Show success feedback
         const originalText = button.innerHTML;
         button.innerHTML = '✅ Copied!';
         button.classList.remove('bg-yellow-400', 'hover:bg-yellow-500');
         button.classList.add('bg-green-500', 'hover:bg-green-600');
 
-        // Update instructions - highlight step 4
-        updateInstructions(4);
-
-        // Reset after 2 seconds
         setTimeout(() => {
             button.innerHTML = originalText;
             button.classList.remove('bg-green-500', 'hover:bg-green-600');
@@ -958,28 +788,25 @@ function copyToClipboard(elementId) {
         }, 2000);
     }).catch(err => {
         console.error('Failed to copy: ', err);
-        // Fallback for older browsers
         element.select();
         document.execCommand('copy');
     });
 }
 
-function validateAmount(input) {
-    const value = parseFloat(input.value);
-    const button = document.querySelector('button[onclick="setDepositAmount()"]');
-
-    if (value >= 10) {
-        button.disabled = false;
-        button.classList.remove('opacity-50', 'cursor-not-allowed');
-    } else {
-        button.disabled = true;
-        button.classList.add('opacity-50', 'cursor-not-allowed');
+function submitDepositRequest() {
+    if (!selectedAmount || !selectedNetwork || !selectedWalletAddress) {
+        alert('Please select a network and confirm your wallet address before submitting.');
+        return;
     }
+
+    document.getElementById('deposit-amount-hidden').value = selectedAmount;
+    document.getElementById('deposit-network-hidden').value = selectedNetwork;
+    document.getElementById('deposit-wallet-hidden').value = selectedWalletAddress;
+
+    document.getElementById('deposit-request-form').submit();
 }
 
-// Initialize instructions on page load
 document.addEventListener('DOMContentLoaded', function() {
-    updateInstructions(1);
     validateAmount(document.getElementById('deposit-amount'));
 });
 </script>
