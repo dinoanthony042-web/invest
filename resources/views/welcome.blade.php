@@ -146,28 +146,27 @@
                         <div>
                             <h4 class="font-bold mb-4 text-yellow-400">Products</h4>
                             <ul class="space-y-2 text-sm text-gray-300">
-                                <li><a href="#" class="hover:text-yellow-300 transition-colors">Investment Plans</a></li>
-                                <li><a href="#" class="hover:text-yellow-300 transition-colors">Portfolio Dashboard</a></li>
-                                <li><a href="#" class="hover:text-yellow-300 transition-colors">Referral Program</a></li>
-                                <li><a href="#" class="hover:text-yellow-300 transition-colors">API Access</a></li>
+                                <li><a href="/products" class="hover:text-yellow-300 transition-colors">Investment Plans</a></li>
+                                <li><a href="{{ auth()->check() ? route('investment.plans') : route('login') }}" class="hover:text-yellow-300 transition-colors">Portfolio Dashboard</a></li>
+                                <li><a href="/referral-program" class="hover:text-yellow-300 transition-colors">Referral Program</a></li>
                             </ul>
                         </div>
                         <div>
                             <h4 class="font-bold mb-4 text-yellow-400">Support</h4>
                             <ul class="space-y-2 text-sm text-gray-300">
-                                <li><a href="#" class="hover:text-yellow-300 transition-colors">Help Center</a></li>
-                                <li><a href="#" class="hover:text-yellow-300 transition-colors">Contact Us</a></li>
-                                <li><a href="#" class="hover:text-yellow-300 transition-colors">Security</a></li>
-                                <li><a href="#" class="hover:text-yellow-300 transition-colors">Status</a></li>
+                                <li><a href="/help-center" class="hover:text-yellow-300 transition-colors">Help Center</a></li>
+                                <li><a href="/contact-us" class="hover:text-yellow-300 transition-colors">Contact Us</a></li>
+                                <li><a href="/security" class="hover:text-yellow-300 transition-colors">Security</a></li>
+                                <li><a href="/status" class="hover:text-yellow-300 transition-colors">Status</a></li>
                             </ul>
                         </div>
                         <div>
                             <h4 class="font-bold mb-4 text-yellow-400">Legal</h4>
                             <ul class="space-y-2 text-sm text-gray-300">
-                                <li><a href="#" class="hover:text-yellow-300 transition-colors">Terms of Service</a></li>
-                                <li><a href="#" class="hover:text-yellow-300 transition-colors">Privacy Policy</a></li>
-                                <li><a href="#" class="hover:text-yellow-300 transition-colors">Compliance</a></li>
-                                <li><a href="#" class="hover:text-yellow-300 transition-colors">Risk Disclosure</a></li>
+                                <li><a href="/terms-of-service" class="hover:text-yellow-300 transition-colors">Terms of Service</a></li>
+                                <li><a href="/privacy-policy" class="hover:text-yellow-300 transition-colors">Privacy Policy</a></li>
+                                <li><a href="/compliance" class="hover:text-yellow-300 transition-colors">Compliance</a></li>
+                                <li><a href="/risk-disclosure" class="hover:text-yellow-300 transition-colors">Risk Disclosure</a></li>
                             </ul>
                         </div>
                     </div>

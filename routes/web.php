@@ -21,6 +21,51 @@ Route::get('/about', function () {
     return view('about');
 });
 
+// Professional Pages
+Route::get('/products', function () {
+    return view('products');
+});
+
+Route::get('/referral-program', function () {
+    return view('referral_program');
+});
+
+Route::get('/support', function () {
+    return view('support');
+});
+
+Route::get('/help-center', function () {
+    return view('help_center');
+});
+
+Route::get('/contact-us', function () {
+    return view('contact_us');
+});
+
+Route::get('/security', function () {
+    return view('security');
+});
+
+Route::get('/status', function () {
+    return view('status');
+});
+
+Route::get('/terms-of-service', function () {
+    return view('terms_of_service');
+});
+
+Route::get('/privacy-policy', function () {
+    return view('privacy_policy');
+});
+
+Route::get('/compliance', function () {
+    return view('compliance');
+});
+
+Route::get('/risk-disclosure', function () {
+    return view('risk_disclosure');
+});
+
 // Auth routes
 Route::get('/test', function() {
     return 'Test route works';
