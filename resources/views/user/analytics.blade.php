@@ -62,7 +62,7 @@
         </header>
 
         <!-- CONTENT -->
-        <main class="p-4 sm:p-6 space-y-6 sm:space-y-8">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8">
             <!-- DAILY PROFITS CHART -->
             <div class="bg-black/50 backdrop-blur-lg rounded-xl border border-yellow-400/20 p-4 sm:p-6">
                 <h2 class="text-lg sm:text-xl font-bold text-white mb-4">Daily Profit Trends</h2>

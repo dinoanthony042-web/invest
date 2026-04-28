@@ -77,7 +77,7 @@
         </nav>
 
         <!-- MAIN DASHBOARD CONTENT -->
-        <main class="px-4 py-8">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         <!-- PORTFOLIO OVERVIEW HERO -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -402,34 +402,7 @@
             </div>
 
             <!-- NEWS & ALERTS -->
-            <div class="bg-gray-800 rounded-2xl border border-yellow-400/20">
-                <div class="p-6 border-b border-yellow-400/20">
-                    <h3 class="text-lg lg:text-xl font-bold text-yellow-400">Market News</h3>
-                    <p class="text-sm text-gray-400">Latest crypto updates</p>
-                </div>
-
-                <div class="p-6 space-y-4">
-                    @forelse($news as $article)
-                    <div class="p-4 bg-yellow-400/10 border border-yellow-400/20 rounded-xl">
-                        <div class="flex items-start space-x-3">
-                            <div class="w-2 h-2 bg-yellow-400 rounded-full mt-2 flex-shrink-0"></div>
-                            <div class="min-w-0">
-                                <p class="text-sm font-medium text-yellow-400">{{ $article['title'] ?? 'Crypto News' }}</p>
-                                <p class="text-xs text-gray-400 mt-1">{{ Str::limit($article['description'] ?? '', 100) }}</p>
-                                @if(isset($article['url']))
-                                <a href="{{ $article['url'] }}" target="_blank" class="text-xs text-yellow-400 hover:text-yellow-300 mt-1 inline-block">Read more →</a>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                    @empty
-                    <div class="text-center py-8">
-                        <p class="text-gray-400">No news available</p>
-                        <p class="text-xs text-gray-500 mt-1">Add NEWS_API_KEY to .env for real updates</p>
-                    </div>
-                    @endforelse
-                </div>
-            </div>
+           
         </div>
 
     </main>

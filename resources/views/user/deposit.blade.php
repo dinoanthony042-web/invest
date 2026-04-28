@@ -73,7 +73,7 @@
         </nav>
 
         <!-- MAIN DEPOSIT CONTENT -->
-        <main class="px-4 py-8">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         <!-- PAGE HEADER -->
         <div class="mb-8">
@@ -133,12 +133,14 @@
 
                     <!-- NETWORK TABS -->
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <button type="button" onclick="selectNetwork('btc')" id="btc-tab" class="network-tab active px-4 py-2 bg-yellow-400 text-black rounded-lg font-medium transition-all">
-                            ₿ Bitcoin (BTC)
-                        </button>
+
                         <button type="button" onclick="selectNetwork('eth')" id="eth-tab" class="network-tab px-4 py-2 bg-gray-700 text-gray-300 rounded-lg font-medium hover:bg-gray-600 transition-all">
                             ⟠ Ethereum (ERC20)
                         </button>
+                        <button type="button" onclick="selectNetwork('btc')" id="btc-tab" class="network-tab active px-4 py-2 bg-yellow-400 text-black rounded-lg font-medium transition-all">
+                            ₿ Bitcoin (BTC)
+                        </button>
+                        
                         <button type="button" onclick="selectNetwork('usdt-trc20')" id="usdt-trc20-tab" class="network-tab px-4 py-2 bg-gray-700 text-gray-300 rounded-lg font-medium hover:bg-gray-600 transition-all">
                             💰 USDT (TRC20)
                         </button>
