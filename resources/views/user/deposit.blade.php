@@ -780,8 +780,6 @@ function submitDepositRequest() {
     // Submit form
     document.getElementById('deposit-request-form').submit();
 }
-</script>
-@endsection
 let selectedAmount = 0;
 let selectedNetwork = null;
 let selectedWalletAddress = null;
