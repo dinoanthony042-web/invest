@@ -14,8 +14,6 @@ class VerifyEmailNotification extends Notification implements ShouldQueue
 
     /**
      * Get the notification's delivery channels.
-     *
-     * @return array<int, string>
      */
     public function via(object $notifiable): array
     {
@@ -23,28 +21,48 @@ class VerifyEmailNotification extends Notification implements ShouldQueue
     }
 
     /**
-     * Get the mail representation of the notification.
+     * Build the mail notification.
      */
     public function toMail(object $notifiable)
     {
+        // Generate signed URL
         $verificationUrl = URL::temporarySignedRoute(
             'verification.verify',
             now()->addMinutes(60),
-            ['id' => $notifiable->getKey(), 'hash' => sha1($notifiable->getEmailForVerification())]
+            [
+                'id' => $notifiable->getKey(),
+                'hash' => sha1($notifiable->getEmailForVerification()),
+            ]
         );
 
-        return (new VerifyEmailMail($notifiable, $verificationUrl))->to($notifiable->email);
+        /**
+         * 🔥 FORCE PRODUCTION DOMAIN SAFETY FIX
+         * This ensures Railway queue workers NEVER output localhost
+         */
+        $appUrl = config('app.url');
+
+        if (!empty($appUrl)) {
+            $parsedAppUrl = parse_url($appUrl);
+            $host = $parsedAppUrl['host'] ?? null;
+
+            if ($host) {
+                $verificationUrl = preg_replace(
+                    '/https?:\/\/[^\/]+/',
+                    $parsedAppUrl['scheme'] . '://' . $host,
+                    $verificationUrl
+                );
+            }
+        }
+
+        return (new VerifyEmailMail($notifiable, $verificationUrl))
+            ->to($notifiable->email);
     }
 
     /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
+     * Optional array representation
      */
     public function toArray(object $notifiable): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 }
