@@ -52,6 +52,12 @@ class AuthController extends Controller
 
         Auth::login($user);
 
+        // Send email verification only for non-admin users
+        if ($user->role === 'user') {
+            $user->sendEmailVerificationNotification();
+            return redirect('/email/verify')->with('message', 'Please verify your email address.');
+        }
+
         return redirect('/dashboard');
     }
 

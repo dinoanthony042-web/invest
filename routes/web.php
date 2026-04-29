@@ -91,8 +91,8 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('resent', true);
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-// Protected routes
-Route::middleware(['auth'])->group(function () {
+// Protected routes - with email verification for users only
+Route::middleware(['auth', 'verified.users'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/analytics', [DashboardController::class, 'analytics'])->name('analytics');
     Route::get('/deposit', [DashboardController::class, 'deposit'])->name('deposit');
