@@ -31,14 +31,16 @@ class VerifyEmailMail extends Mailable implements ShouldQueue
     /**
      * Get the message envelope.
      */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: 'Verify Your Email - Bridgefield Capital Group',
-            from: ['support@bridgefieldcapitalgroup.com' => 'Bridgefield Capital Group'],
-
-        );
-    }
+   public function envelope(): Envelope
+{
+    return new Envelope(
+        subject: 'Verify Your Email - Bridgefield Capital Group',
+        from: new Address(
+            'support@bridgefieldcapitalgroup.com',
+            'Bridgefield Capital Group'
+        ),
+    );
+}
 
     /**
      * Get the message content definition.
