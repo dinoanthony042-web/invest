@@ -23,40 +23,15 @@ class VerifyEmailNotification extends Notification implements ShouldQueue
     /**
      * Build the mail notification.
      */
-    public function toMail(object $notifiable)
-    {
-        // Generate signed URL
-        $verificationUrl = URL::temporarySignedRoute(
-            'verification.verify',
-            now()->addMinutes(60),
-            [
-                'id' => $notifiable->getKey(),
-                'hash' => sha1($notifiable->getEmailForVerification()),
-            ]
-        );
+   public function toMail(object $notifiable)
+{
+    $appUrl = rtrim(config('app.url'), '/');
 
-        /**
-         * 🔥 FORCE PRODUCTION DOMAIN SAFETY FIX
-         * This ensures Railway queue workers NEVER output localhost
-         */
-        $appUrl = config('app.url');
+    $verificationUrl = $appUrl . '/email/verify/' . $notifiable->getKey() . '/' . sha1($notifiable->getEmailForVerification());
 
-        if (!empty($appUrl)) {
-            $parsedAppUrl = parse_url($appUrl);
-            $host = $parsedAppUrl['host'] ?? null;
-
-            if ($host) {
-                $verificationUrl = preg_replace(
-                    '/https?:\/\/[^\/]+/',
-                    $parsedAppUrl['scheme'] . '://' . $host,
-                    $verificationUrl
-                );
-            }
-        }
-
-        return (new VerifyEmailMail($notifiable, $verificationUrl))
-            ->to($notifiable->email);
-    }
+    return (new VerifyEmailMail($notifiable, $verificationUrl))
+        ->to($notifiable->email);
+}
 
     /**
      * Optional array representation
