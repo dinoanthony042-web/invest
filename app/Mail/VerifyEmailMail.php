@@ -25,6 +25,7 @@ class VerifyEmailMail extends Mailable implements ShouldQueue
     {
         $this->user = $user;
         $this->verificationUrl = $verificationUrl;
+        
     }
 
     /**
@@ -34,6 +35,8 @@ class VerifyEmailMail extends Mailable implements ShouldQueue
     {
         return new Envelope(
             subject: 'Verify Your Email - Bridgefield Capital Group',
+            from: ['support@bridgefieldcapitalgroup.com' => 'Bridgefield Capital Group'],
+
         );
     }
 
