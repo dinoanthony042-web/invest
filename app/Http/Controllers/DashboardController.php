@@ -232,7 +232,7 @@ class DashboardController extends Controller
         ]);
 
         // Send pending deposit email
-        Mail::to($deposit->user->email)->send(new \App\Mail\DepositPendingMail($deposit));
+        dispatch(new \App\Mail\DepositPendingMail($deposit));
 
         return redirect()->route('deposit.confirmation', ['deposit' => $deposit->id]);
     }
@@ -268,7 +268,7 @@ class DashboardController extends Controller
             $deposit->user->increment('wallet_balance', $deposit->amount);
 
             // Send approved deposit email
-            Mail::to($deposit->user->email)->send(new \App\Mail\DepositApprovedMail($deposit));
+            dispatch(new \App\Mail\DepositApprovedMail($deposit));
         }
 
         return back()->with('success', 'Deposit approved and wallet balance updated.');
