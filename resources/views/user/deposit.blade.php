@@ -23,7 +23,7 @@
                 <a href="{{ route('analytics') }}" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
                     <span class="mr-3">📊</span> Analytics
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
+                <a href="{{ route('settings') }}" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
                     <span class="mr-3">⚙️</span> Settings
                 </a>
             </div>

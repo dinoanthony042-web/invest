@@ -53,8 +53,8 @@
                                 <p class="text-gray-300">Minimum Investment</p>
                             </div>
                             <ul class="text-left space-y-3 mb-8">
-                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> 8% Annual Return</li>
-                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> 6 Month Lock-in</li>
+                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> 20% Return</li>
+                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> 7 Day Term</li>
                                 <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> Basic Analytics</li>
                                 <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> Email Support</li>
                             </ul>
@@ -69,8 +69,8 @@
                                 <p class="text-gray-800">Minimum Investment</p>
                             </div>
                             <ul class="text-left space-y-3 mb-8">
-                                <li class="flex items-center"><span class="text-black mr-2">✓</span> 12% Annual Return</li>
-                                <li class="flex items-center"><span class="text-black mr-2">✓</span> 3 Month Lock-in</li>
+                                <li class="flex items-center"><span class="text-black mr-2">✓</span> 90% Return</li>
+                                <li class="flex items-center"><span class="text-black mr-2">✓</span> 30 Day Term</li>
                                 <li class="flex items-center"><span class="text-black mr-2">✓</span> Advanced Analytics</li>
                                 <li class="flex items-center"><span class="text-black mr-2">✓</span> Priority Support</li>
                                 <li class="flex items-center"><span class="text-black mr-2">✓</span> Tax Optimization</li>
@@ -85,8 +85,8 @@
                                 <p class="text-gray-300">Minimum Investment</p>
                             </div>
                             <ul class="text-left space-y-3 mb-8">
-                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> 15% Annual Return</li>
-                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> Flexible Lock-in</li>
+                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> 250% Return</li>
+                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> 6 Month Term</li>
                                 <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> Premium Analytics</li>
                                 <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> 24/7 Support</li>
                                 <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> Personal Advisor</li>
@@ -103,8 +103,8 @@
                                 <p class="text-gray-300">Minimum Investment</p>
                             </div>
                             <ul class="text-left space-y-3 mb-8 relative z-10">
-                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> 20% Annual Return</li>
-                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> 12 Month Lock-in</li>
+                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> 400% Return</li>
+                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> 1 Year Term</li>
                                 <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> Exclusive Market Access</li>
                                 <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> Dedicated Account Team</li>
                                 <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> Custom Risk Management</li>

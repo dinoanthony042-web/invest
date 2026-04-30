@@ -29,7 +29,7 @@
                 <a href="{{ route('analytics') }}" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
                     <span class="mr-3">📊</span> Analytics
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
+                <a href="{{ route('settings') }}" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
                     <span class="mr-3">⚙️</span> Settings
                 </a>
             </div>
@@ -183,9 +183,9 @@
                         <a href="{{ route('analytics') }}" class="block w-full bg-gray-700 text-white font-semibold py-3 px-4 rounded-xl hover:bg-gray-600 transition-colors min-h-[44px] flex items-center justify-center">
                             📊 View Analytics
                         </a>
-                        <button class="w-full bg-gray-700 text-white font-semibold py-3 px-4 rounded-xl hover:bg-gray-600 transition-colors min-h-[44px]">
+                        <a href="{{ route('settings') }}" class="block w-full bg-gray-700 text-white font-semibold py-3 px-4 rounded-xl hover:bg-gray-600 transition-colors min-h-[44px] flex items-center justify-center">
                             ⚙️ Settings
-                        </button>
+                        </a>
                     </div>
                 </div>
 
@@ -333,17 +333,17 @@
 
                             <div class="flex justify-between items-center">
                                 <span class="text-sm text-gray-400">Current Value</span>
-                                <span class="font-bold text-green-400">${{ number_format($userPlan->amount + ($userPlan->expected_return * min($userPlan->created_at->diffInDays(now()) / ($userPlan->investmentPlan->duration_months * 30), 1)), 2) }}</span>
+                                <span class="font-bold text-green-400">${{ number_format($userPlan->amount + ($userPlan->expected_return * min($userPlan->created_at->diffInDays(now()) / $userPlan->investmentPlan->duration_days, 1)), 2) }}</span>
                             </div>
 
                             <div class="flex justify-between items-center">
                                 <span class="text-sm text-gray-400">Profit</span>
-                                <span class="font-bold text-green-400">+${{ number_format($userPlan->expected_return * min($userPlan->created_at->diffInDays(now()) / ($userPlan->investmentPlan->duration_months * 30), 1), 2) }}</span>
+                                <span class="font-bold text-green-400">+${{ number_format($userPlan->expected_return * min($userPlan->created_at->diffInDays(now()) / $userPlan->investmentPlan->duration_days, 1), 2) }}</span>
                             </div>
 
                             <div class="flex justify-between items-center">
                                 <span class="text-sm text-gray-400">Days Remaining</span>
-                                <span class="font-bold text-white">{{ max(intval(($userPlan->investmentPlan->duration_months * 30) - $userPlan->created_at->diffInDays(now())), 0) }} days</span>
+                                <span class="font-bold text-white">{{ max(intval($userPlan->investmentPlan->duration_days - $userPlan->created_at->diffInDays(now())), 0) }} days</span>
                             </div>
 
                             <div class="flex justify-between items-center">
@@ -353,7 +353,7 @@
 
                             <div class="flex justify-between items-center">
                                 <span class="text-sm text-gray-400">Duration</span>
-                                <span class="font-bold text-white">{{ $userPlan->investmentPlan->duration_months }} months</span>
+                                <span class="font-bold text-white">{{ $userPlan->investmentPlan->duration_text }}</span>
                             </div>
 
                             <div class="flex justify-between items-center">

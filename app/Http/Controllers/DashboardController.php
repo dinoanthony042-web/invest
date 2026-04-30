@@ -52,7 +52,7 @@ class DashboardController extends Controller
 
             foreach ($userInvestmentPlans as $plan) {
                 $daysElapsed = $plan->created_at->diffInDays(now());
-                $totalDays = $plan->investmentPlan->duration_months * 30; // approximate
+                $totalDays = $plan->investmentPlan->duration_days;
                 $progress = min($totalDays > 0 ? $daysElapsed / $totalDays : 1, 1);
                 $currentValue = $plan->amount + ($plan->expected_return * $progress);
                 $portfolioItems->push([
@@ -93,7 +93,7 @@ class DashboardController extends Controller
                 foreach ($userInvestmentPlans as $plan) {
                     $daysElapsed = $plan->created_at->diffInDays($date);
                     if ($date >= $plan->created_at) {
-                        $planDays = max($plan->investmentPlan->duration_months * 30, 1);
+                        $planDays = max($plan->investmentPlan->duration_days, 1);
                         $progress = min($daysElapsed / $planDays, 1);
                         $portfolioValue += $plan->amount + ($plan->expected_return * $progress);
                     }
@@ -293,6 +293,12 @@ class DashboardController extends Controller
         return view('user.investment_plans', compact('plans'));
     }
 
+    public function settings()
+    {
+        $user = Auth::user();
+        return view('user.settings', compact('user'));
+    }
+
     public function buyPlan(Request $request, InvestmentPlan $plan)
     {
         $user = Auth::user();
@@ -345,8 +351,8 @@ class DashboardController extends Controller
             foreach ($userInvestmentPlans as $plan) {
                 $daysElapsed = $plan->created_at->diffInDays($date);
                 if ($daysElapsed > 0) {
-                    $progress = min($daysElapsed / ($plan->investmentPlan->duration_months * 30), 1);
-                    $profit += $plan->expected_return * $progress * ($daysElapsed / ($plan->investmentPlan->duration_months * 30));
+                    $progress = min($daysElapsed / $plan->investmentPlan->duration_days, 1);
+                    $profit += $plan->expected_return * $progress * ($daysElapsed / $plan->investmentPlan->duration_days);
                 }
             }
             

@@ -23,7 +23,7 @@
                 <a href="{{ route('analytics') }}" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
                     <span class="mr-3">📊</span> Analytics
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
+                <a href="{{ route('settings') }}" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
                     <span class="mr-3">⚙️</span> Settings
                 </a>
             </div>
@@ -142,7 +142,7 @@
                         <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
                         <div>
                             <p class="text-sm text-gray-400">Duration</p>
-                            <p class="font-semibold text-white">{{ $plan->duration_months }} Months</p>
+                            <p class="font-semibold text-white">{{ $plan->duration_text }}</p>
                         </div>
                     </div>
 
@@ -156,7 +156,7 @@
                 </div>
 
                 <!-- ACTION BUTTON -->
-                <button onclick="confirmPurchase({{ $plan->id }}, '{{ $plan->name }}', {{ $plan->price }}, {{ $plan->roi_percentage }}, {{ $plan->duration_months }})" class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-semibold py-4 px-6 rounded-xl hover:from-yellow-500 hover:to-orange-600 transition-all transform hover:scale-105 shadow-lg">
+                <button onclick="confirmPurchase({{ $plan->id }}, '{{ $plan->name }}', {{ $plan->price }}, {{ $plan->roi_percentage }}, {{ json_encode($plan->duration_text) }})" class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-semibold py-4 px-6 rounded-xl hover:from-yellow-500 hover:to-orange-600 transition-all transform hover:scale-105 shadow-lg">
                     🚀 Buy This Plan
                 </button>
 
@@ -242,12 +242,12 @@ window.addEventListener('resize', () => {
 });
 
 // Confirmation Modal Functions
-function confirmPurchase(planId, planName, planPrice, roiPercentage, durationMonths) {
+function confirmPurchase(planId, planName, planPrice, roiPercentage, durationText) {
     const modal = document.getElementById('confirmModal');
     document.getElementById('planName').textContent = planName;
     document.getElementById('planPrice').textContent = '$' + parseFloat(planPrice).toFixed(2);
     document.getElementById('planROI').textContent = roiPercentage.toFixed(1) + '%';
-    document.getElementById('planDuration').textContent = durationMonths + ' months';
+    document.getElementById('planDuration').textContent = durationText;
     document.getElementById('expectedReturn').textContent = '$' + (parseFloat(planPrice) * parseFloat(roiPercentage) / 100).toFixed(2);
     document.getElementById('confirmBtn').onclick = function() {
         submitPurchase(planId);
