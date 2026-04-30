@@ -83,7 +83,8 @@ Route::get('/email/verify', function () {
 
 Route::get('/email/verify/{id}/{hash}', function (Request $request) {
     $request->user()->markEmailAsVerified();
-    return redirect('/dashboard')->with('verified', true);
+    Auth::logout();
+    return redirect('/login')->with('verified', true);
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {

@@ -13,6 +13,12 @@
             </div>
 
             <div class="p-8">
+                @if (session('verified'))
+                    <div class="bg-green-600 text-white px-4 py-3 rounded mb-4 text-center">
+                        Your email has been verified successfully! Please log in to continue.
+                    </div>
+                @endif
+
                 <form method="POST" action="{{ route('login') }}" class="space-y-6">
                     @csrf
 
