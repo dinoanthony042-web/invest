@@ -4,14 +4,13 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Attachment;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\DepositRequest;
+use App\Services\BrevoEmailService;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\View;
 
-class DepositPendingMail extends Mailable implements ShouldQueue
+class DepositPendingMail implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -26,27 +25,31 @@ class DepositPendingMail extends Mailable implements ShouldQueue
     }
 
     /**
-     * Get the message envelope.
+     * Execute the job.
      */
-    public function envelope(): Envelope
+    public function handle(BrevoEmailService $brevoService): void
     {
-        return new Envelope(
-            subject: 'Deposit Request Submitted - Bridgefield Capital Group',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'emails.deposit-pending',
-            with: [
+        try {
+            $htmlContent = View::make('emails.deposit-pending', [
                 'deposit' => $this->deposit,
                 'user' => $this->deposit->user,
-            ],
-        );
+            ])->render();
+
+            $brevoService->send(
+                \App\Notifications\Messages\BrevoMessage::create(
+                    'Deposit Request Submitted - Bridgefield Capital Group',
+                    $htmlContent
+                )
+                ->to($this->deposit->user->email, $this->deposit->user->name)
+                ->tag('deposit-pending')
+            );
+        } catch (\Exception $e) {
+            Log::error('Failed to send deposit pending email', [
+                'deposit_id' => $this->deposit->id,
+                'error' => $e->getMessage()
+            ]);
+            throw $e;
+        }
     }
 
     /**
