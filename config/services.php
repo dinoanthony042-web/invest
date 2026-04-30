@@ -18,6 +18,12 @@ return [
         'key' => env('POSTMARK_API_KEY'),
     ],
 
+    'brevo' => [
+        'key' => env('BREVO_API_KEY'),
+        'sender_email' => env('BREVO_SENDER_EMAIL', 'support@bridgefieldcapitalgroup.com'),
+        'sender_name' => env('BREVO_SENDER_NAME', 'Bridgefield Capital Group'),
+    ],
+
     'resend' => [
         'key' => env('RESEND_API_KEY'),
     ],

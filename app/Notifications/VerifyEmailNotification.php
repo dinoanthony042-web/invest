@@ -2,11 +2,13 @@
 
 namespace App\Notifications;
 
+use App\Notifications\Channels\BrevoChannel;
+use App\Notifications\Messages\BrevoMessage;
+use App\Services\BrevoEmailService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\URL;
-use App\Mail\VerifyEmailMail;
 
 class VerifyEmailNotification extends Notification implements ShouldQueue
 {
@@ -17,21 +19,32 @@ class VerifyEmailNotification extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return [BrevoChannel::class];
     }
 
     /**
-     * Build the mail notification.
+     * Build the Brevo email payload.
      */
-   public function toMail(object $notifiable)
-{
-    $appUrl = rtrim(config('app.url'), '/');
+    public function toBrevo(object $notifiable): BrevoMessage
+    {
+        $verificationUrl = URL::temporarySignedRoute(
+            'verification.verify',
+            now()->addMinutes(60),
+            [
+                'id' => $notifiable->getKey(),
+                'hash' => sha1($notifiable->getEmailForVerification()),
+            ]
+        );
 
-    $verificationUrl = $appUrl . '/email/verify/' . $notifiable->getKey() . '/' . sha1($notifiable->getEmailForVerification());
+        $html = app(BrevoEmailService::class)->renderHtml('emails.verify-email', [
+            'user' => $notifiable,
+            'verificationUrl' => $verificationUrl,
+        ]);
 
-    return (new VerifyEmailMail($notifiable, $verificationUrl))
-        ->to($notifiable->email);
-}
+        return BrevoMessage::create('Verify Your Email - Bridgefield Capital Group', $html)
+            ->to($notifiable->email, $notifiable->name ?? '')
+            ->tag('email-verification');
+    }
 
     /**
      * Optional array representation
