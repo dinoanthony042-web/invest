@@ -20,6 +20,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if ($this->app->runningInConsole()) {
+            return;
+        }
+
+        $forwardedProto = request()->header('X-Forwarded-Proto');
+        $forwardedHost = request()->header('X-Forwarded-Host');
+
+        if ($forwardedProto && $forwardedHost) {
+            URL::forceRootUrl($forwardedProto.'://'.$forwardedHost);
+            URL::forceScheme($forwardedProto);
+
+            return;
+        }
+
         $appUrl = config('app.url');
 
         if ($appUrl) {
