@@ -231,8 +231,8 @@ class DashboardController extends Controller
             'status' => 'pending',
         ]);
 
-        // Send pending deposit email
-        dispatch(new \App\Mail\DepositPendingMail($deposit));
+        // Send pending deposit notification
+        $deposit->user->notify(new \App\Notifications\DepositPendingNotification($deposit));
 
         return redirect()->route('deposit.confirmation', ['deposit' => $deposit->id]);
     }
@@ -267,8 +267,8 @@ class DashboardController extends Controller
             $deposit->update(['status' => 'approved']);
             $deposit->user->increment('wallet_balance', $deposit->amount);
 
-            // Send approved deposit email
-            dispatch(new \App\Mail\DepositApprovedMail($deposit));
+            // Send approved deposit notification
+            $deposit->user->notify(new \App\Notifications\DepositApprovedNotification($deposit));
         }
 
         return back()->with('success', 'Deposit approved and wallet balance updated.');
