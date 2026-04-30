@@ -45,7 +45,7 @@
                     <h1 class="text-5xl md:text-6xl font-extrabold mb-6 text-white leading-tight tracking-tight">Investment Plans<br><span class="text-yellow-400">Choose Your Strategy</span></h1>
                     <p class="text-xl md:text-2xl mb-16 text-gray-200 max-w-3xl mx-auto leading-relaxed">Select from our range of carefully crafted investment plans designed to maximize your returns while managing risk effectively.</p>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         <div class="bg-gray-800 text-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-gray-700">
                             <div class="text-center mb-6">
                                 <h3 class="text-2xl font-bold mb-2 text-yellow-400">Starter Plan</h3>
@@ -91,6 +91,24 @@
                                 <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> 24/7 Support</li>
                                 <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> Personal Advisor</li>
                                 <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> VIP Events</li>
+                            </ul>
+                            <a href="/login" class="w-full inline-flex justify-center bg-yellow-400 text-black py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors duration-300">Get Started</a>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-slate-900 to-black text-white p-8 rounded-2xl shadow-2xl border border-yellow-400/20 relative overflow-hidden">
+                            <div class="absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-yellow-400 via-white to-yellow-400 opacity-70"></div>
+                            <div class="text-center mb-6 relative z-10">
+                                <h3 class="text-2xl font-bold mb-2 text-yellow-400">Diamond Plan</h3>
+                                <div class="text-4xl font-extrabold text-white mb-2">$25,000</div>
+                                <p class="text-gray-300">Minimum Investment</p>
+                            </div>
+                            <ul class="text-left space-y-3 mb-8 relative z-10">
+                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> 20% Annual Return</li>
+                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> 12 Month Lock-in</li>
+                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> Exclusive Market Access</li>
+                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> Dedicated Account Team</li>
+                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> Custom Risk Management</li>
+                                <li class="flex items-center"><span class="text-yellow-400 mr-2">✓</span> VIP Priority Support</li>
                             </ul>
                             <a href="/login" class="w-full inline-flex justify-center bg-yellow-400 text-black py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors duration-300">Get Started</a>
                         </div>

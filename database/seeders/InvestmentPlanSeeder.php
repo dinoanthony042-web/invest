@@ -35,5 +35,14 @@ class InvestmentPlanSeeder extends Seeder
             'duration_months' => 1,
             'is_active' => true,
         ]);
+
+        InvestmentPlan::create([
+            'name' => 'Diamond Plan',
+            'description' => 'Ultimate tier for elite investors seeking the highest rewards with dedicated premium service',
+            'price' => 25000,
+            'roi_percentage' => 20,
+            'duration_months' => 12,
+            'is_active' => true,
+        ]);
     }
 }
