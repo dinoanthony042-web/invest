@@ -5,8 +5,8 @@
             <p class="text-sm font-medium">{{ Auth::user()->name }}</p>
             <p class="text-xs text-gray-400">{{ Auth::user()->role === 'admin' ? 'Admin' : 'Premium Investor' }}</p>
         </div>
-        <div class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
-            <span class="text-white font-bold text-sm">{{ $userInitial }}</span>
+        <div class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
+            <span class="text-gray-900 font-bold text-sm">{{ $userInitial }}</span>
         </div>
     </button>
 

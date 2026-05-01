@@ -90,13 +90,16 @@
         </div>
 
         <!-- WALLET STATUS -->
-        <div class="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl p-4 sm:p-6 mb-8 text-black shadow-lg">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div>
-                    <p class="text-sm font-medium opacity-90">Available Balance</p>
-                    <h2 class="text-3xl sm:text-4xl font-bold">${{ number_format(Auth::user()->wallet_balance ?? 0, 2) }}</h2>
+        <div class="bg-gradient-to-r from-yellow-400 via-yellow-300 to-orange-500 rounded-3xl p-6 sm:p-8 mb-8 text-black shadow-2xl border-2 border-yellow-200">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+                <div class="flex-1">
+                    <p class="text-sm sm:text-base font-semibold opacity-80 uppercase tracking-wider">💼 Available Balance</p>
+                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black mt-2 drop-shadow-lg">
+                        ${{ number_format(Auth::user()->wallet_balance ?? 0, 2) }}
+                    </h2>
+                    <p class="text-xs sm:text-sm mt-2 opacity-70 font-medium">Ready to invest</p>
                 </div>
-                <a href="{{ route('deposit') }}" class="w-full sm:w-auto px-4 sm:px-6 py-3 bg-black text-yellow-400 rounded-lg font-semibold hover:bg-gray-900 transition-colors text-center">
+                <a href="{{ route('deposit') }}" class="w-full sm:w-auto px-6 sm:px-8 py-4 bg-black text-yellow-400 rounded-2xl font-bold text-base sm:text-lg hover:bg-gray-900 transition-all transform hover:scale-105 shadow-lg border-2 border-black">
                     💰 Deposit More Funds
                 </a>
             </div>

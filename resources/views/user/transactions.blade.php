@@ -103,7 +103,7 @@
                         <div class="rounded-3xl bg-gray-800 p-4 border border-yellow-400/10">
                             <div class="flex justify-between items-center mb-2">
                                 <span class="text-white font-semibold">{{ $investment->investmentPlan->name }}</span>
-                                <span class="text-sm text-gray-400">{{ $investment->created_at->format('M d, Y') }}</span>
+                                <span class="text-sm text-gray-400">{{ $investment->created_at->format('M d, Y h:i A') }}</span>
                             </div>
                             <p class="text-gray-400 text-sm">Amount invested: ${{ number_format($investment->amount, 2) }}</p>
                             <p class="text-gray-400 text-sm">Expected return: ${{ number_format($investment->expected_return, 2) }}</p>

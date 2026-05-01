@@ -253,7 +253,7 @@
                         @empty
                         <div class="text-center py-8">
                             <p class="text-gray-400">No investments yet</p>
-                            <a href="{{ route('investment.plans') }}" class="inline-block mt-4 bg-yellow-400 text-black px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition-colors min-h-[44px] flex items-center justify-center">
+                            <a href="{{ route('investment.plans') }}" class="inline-block mt-4 bg-black-400 text-black px-6 py-3 rounded-lg font-semibold hover:bg-black-500 transition-colors min-h-[44px] flex items-center justify-center">
                                 Start Investing
                             </a>
                         </div>
