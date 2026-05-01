@@ -44,39 +44,9 @@
                             <label for="country" class="block text-sm font-medium text-yellow-400 mb-2">Country</label>
                             <select id="country" class="w-full px-4 py-3 bg-gray-900 border border-yellow-400/20 rounded-lg text-white focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 @error('country') border-red-400 @enderror" name="country" required>
                                 <option value="">Select a country</option>
-                                <option value="United States" {{ old('country') === 'United States' ? 'selected' : '' }}>United States</option>
-                                <option value="United Kingdom" {{ old('country') === 'United Kingdom' ? 'selected' : '' }}>United Kingdom</option>
-                                <option value="Canada" {{ old('country') === 'Canada' ? 'selected' : '' }}>Canada</option>
-                                <option value="Australia" {{ old('country') === 'Australia' ? 'selected' : '' }}>Australia</option>
-                                <option value="Germany" {{ old('country') === 'Germany' ? 'selected' : '' }}>Germany</option>
-                                <option value="France" {{ old('country') === 'France' ? 'selected' : '' }}>France</option>
-                                <option value="Italy" {{ old('country') === 'Italy' ? 'selected' : '' }}>Italy</option>
-                                <option value="Spain" {{ old('country') === 'Spain' ? 'selected' : '' }}>Spain</option>
-                                <option value="Netherlands" {{ old('country') === 'Netherlands' ? 'selected' : '' }}>Netherlands</option>
-                                <option value="Switzerland" {{ old('country') === 'Switzerland' ? 'selected' : '' }}>Switzerland</option>
-                                <option value="Sweden" {{ old('country') === 'Sweden' ? 'selected' : '' }}>Sweden</option>
-                                <option value="Norway" {{ old('country') === 'Norway' ? 'selected' : '' }}>Norway</option>
-                                <option value="Denmark" {{ old('country') === 'Denmark' ? 'selected' : '' }}>Denmark</option>
-                                <option value="Belgium" {{ old('country') === 'Belgium' ? 'selected' : '' }}>Belgium</option>
-                                <option value="Austria" {{ old('country') === 'Austria' ? 'selected' : '' }}>Austria</option>
-                                <option value="Japan" {{ old('country') === 'Japan' ? 'selected' : '' }}>Japan</option>
-                                <option value="South Korea" {{ old('country') === 'South Korea' ? 'selected' : '' }}>South Korea</option>
-                                <option value="Singapore" {{ old('country') === 'Singapore' ? 'selected' : '' }}>Singapore</option>
-                                <option value="Hong Kong" {{ old('country') === 'Hong Kong' ? 'selected' : '' }}>Hong Kong</option>
-                                <option value="India" {{ old('country') === 'India' ? 'selected' : '' }}>India</option>
-                                <option value="China" {{ old('country') === 'China' ? 'selected' : '' }}>China</option>
-                                <option value="Brazil" {{ old('country') === 'Brazil' ? 'selected' : '' }}>Brazil</option>
-                                <option value="Mexico" {{ old('country') === 'Mexico' ? 'selected' : '' }}>Mexico</option>
-                                <option value="Argentina" {{ old('country') === 'Argentina' ? 'selected' : '' }}>Argentina</option>
-                                <option value="Chile" {{ old('country') === 'Chile' ? 'selected' : '' }}>Chile</option>
-                                <option value="South Africa" {{ old('country') === 'South Africa' ? 'selected' : '' }}>South Africa</option>
-                                <option value="UAE" {{ old('country') === 'UAE' ? 'selected' : '' }}>UAE</option>
-                                <option value="Saudi Arabia" {{ old('country') === 'Saudi Arabia' ? 'selected' : '' }}>Saudi Arabia</option>
-                                <option value="Thailand" {{ old('country') === 'Thailand' ? 'selected' : '' }}>Thailand</option>
-                                <option value="Malaysia" {{ old('country') === 'Malaysia' ? 'selected' : '' }}>Malaysia</option>
-                                <option value="Philippines" {{ old('country') === 'Philippines' ? 'selected' : '' }}>Philippines</option>
-                                <option value="Indonesia" {{ old('country') === 'Indonesia' ? 'selected' : '' }}>Indonesia</option>
-                                <option value="Vietnam" {{ old('country') === 'Vietnam' ? 'selected' : '' }}>Vietnam</option>
+                                @foreach($countries as $country)
+                                    <option value="{{ $country }}" {{ old('country') === $country ? 'selected' : '' }}>{{ $country }}</option>
+                                @endforeach
                             </select>
                             @error('country')
                                 <p class="mt-1 text-sm text-red-400">{{ $message }}</p>

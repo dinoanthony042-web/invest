@@ -32,7 +32,8 @@ class AuthController extends Controller
 
     public function showRegister()
     {
-        return view('auth.register');
+        $countries = config('countries.countries');
+        return view('auth.register', compact('countries'));
     }
 
     public function register(Request $request)
