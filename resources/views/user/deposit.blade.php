@@ -144,11 +144,11 @@
                     <!-- NETWORK TABS -->
                     <div class="flex flex-wrap gap-2 mb-6">
 
-                        <button type="button" onclick="selectNetwork('eth')" id="eth-tab" class="network-tab px-4 py-2 bg-gray-700 text-gray-300 rounded-lg font-medium hover:bg-gray-600 transition-all">
-                            ⟠ Ethereum (ERC20)
-                        </button>
                         <button type="button" onclick="selectNetwork('btc')" id="btc-tab" class="network-tab active px-4 py-2 bg-yellow-400 text-black rounded-lg font-medium transition-all">
                             ₿ Bitcoin (BTC)
+                        </button>
+                        <button type="button" onclick="selectNetwork('eth')" id="eth-tab" class="network-tab px-4 py-2 bg-gray-700 text-gray-300 rounded-lg font-medium hover:bg-gray-600 transition-all">
+                            ⟠ Ethereum (ERC20)
                         </button>
                         
                         <button type="button" onclick="selectNetwork('usdt-trc20')" id="usdt-trc20-tab" class="network-tab px-4 py-2 bg-gray-700 text-gray-300 rounded-lg font-medium hover:bg-gray-600 transition-all">
@@ -189,7 +189,7 @@
                                 <div>
                                     <label class="block text-sm font-medium text-gray-400 mb-2">Wallet Address</label>
                                     <div class="flex items-center space-x-2">
-                                        <input type="text" readonly value="bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh" class="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white font-mono text-sm" id="btc-address">
+                                        <input type="text" readonly value="bc1q6a3ytgq88h8y6c0m09d7w8ff6whera9nr3ramd" class="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white font-mono text-sm" id="btc-address">
                                         <button type="button" onclick="copyToClipboard('btc-address')" class="px-4 py-3 bg-yellow-400 text-black rounded-lg font-medium hover:bg-yellow-500 transition-colors" id="btc-copy-btn">
                                             📋 Copy
                                         </button>
@@ -200,7 +200,7 @@
                                     <div class="bg-gray-900/50 rounded-lg p-4">
                                         <div class="text-center">
                                             <div class="w-32 h-32 mx-auto bg-white rounded-lg flex items-center justify-center mb-2">
-                                                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiBmaWxsPSIjZmZmZmZmIi8+Cjx0ZXh0IHg9IjY0IiB5PSI2NCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSIjMDAwMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zNWVtIj5CUkNPREVfSFRNTDwvdGV4dD4KPC9zdmc+" alt="QR Code" class="w-full h-full object-contain">
+                                                <img src="{{ asset('images/btc.jpg') }}" alt="BTC QR Code" class="w-full h-full object-contain">
                                             </div>
                                             <p class="text-xs text-gray-400">Scan QR Code</p>
                                         </div>
@@ -254,7 +254,7 @@
                                 <div>
                                     <label class="block text-sm font-medium text-gray-400 mb-2">Wallet Address</label>
                                     <div class="flex items-center space-x-2">
-                                        <input type="text" readonly value="0x742d35Cc6634C0532925a3b844Bc454e4438f44e" class="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white font-mono text-sm" id="eth-address">
+                                        <input type="text" readonly value="0x1f7C0Cdb751b1Ff90875d10E35491b3DB365b3Fb" class="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white font-mono text-sm" id="eth-address">
                                         <button type="button" onclick="copyToClipboard('eth-address')" class="px-4 py-3 bg-yellow-400 text-black rounded-lg font-medium hover:bg-yellow-500 transition-colors" id="eth-copy-btn">
                                             📋 Copy
                                         </button>
@@ -265,7 +265,7 @@
                                     <div class="bg-gray-900/50 rounded-lg p-4">
                                         <div class="text-center">
                                             <div class="w-32 h-32 mx-auto bg-white rounded-lg flex items-center justify-center mb-2">
-                                                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiBmaWxsPSIjZmZmZmZmIi8+Cjx0ZXh0IHg9IjY0IiB5PSI2NCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSIjMDAwMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zNWVtIj5FVEhfUVJDMjA8L3RleHQ+Cjwvc3ZnPg==" alt="QR Code" class="w-full h-full object-contain">
+                                                <img src="{{ asset('images/ethereum.jpg') }}" alt="Ethereum QR Code" class="w-full h-full object-contain">
                                             </div>
                                             <p class="text-xs text-gray-400">Scan QR Code</p>
                                         </div>
@@ -319,7 +319,7 @@
                                 <div>
                                     <label class="block text-sm font-medium text-gray-400 mb-2">Wallet Address</label>
                                     <div class="flex items-center space-x-2">
-                                        <input type="text" readonly value="TJjhx8x8x8x8x8x8x8x8x8x8x8x8x8x8x8x8x8x8" class="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white font-mono text-sm" id="usdt-trc20-address">
+                                        <input type="text" readonly value="TTjQkyFp4r3N5N6XD55w35vKAu1efPTV4o" class="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white font-mono text-sm" id="usdt-trc20-address">
                                         <button type="button" onclick="copyToClipboard('usdt-trc20-address')" class="px-4 py-3 bg-yellow-400 text-black rounded-lg font-medium hover:bg-yellow-500 transition-colors" id="usdt-trc20-copy-btn">
                                             📋 Copy
                                         </button>
@@ -330,7 +330,7 @@
                                     <div class="bg-gray-900/50 rounded-lg p-4">
                                         <div class="text-center">
                                             <div class="w-32 h-32 mx-auto bg-white rounded-lg flex items-center justify-center mb-2">
-                                                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiBmaWxsPSIjZmZmZmZmIi8+Cjx0ZXh0IHg9IjY0IiB5PSI2NCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSIjMDAwMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zNWVtIj5VU0RUX1RSQzIwPC90ZXh0Pgo8L3N2Zz4=" alt="QR Code" class="w-full h-full object-contain">
+                                                <img src="{{ asset('images/usdt-trc20.jpg') }}" alt="USDT TRC20 QR Code" class="w-full h-full object-contain">
                                             </div>
                                             <p class="text-xs text-gray-400">Scan QR Code</p>
                                         </div>
@@ -384,7 +384,7 @@
                                 <div>
                                     <label class="block text-sm font-medium text-gray-400 mb-2">Wallet Address</label>
                                     <div class="flex items-center space-x-2">
-                                        <input type="text" readonly value="0x8ba1f109551bD432803012645ac136ddd64DBA72" class="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white font-mono text-sm" id="usdt-erc20-address">
+                                        <input type="text" readonly value="0x1f7C0Cdb751b1Ff90875d10E35491b3DB365b3Fb" class="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white font-mono text-sm" id="usdt-erc20-address">
                                         <button type="button" onclick="copyToClipboard('usdt-erc20-address')" class="px-4 py-3 bg-yellow-400 text-black rounded-lg font-medium hover:bg-yellow-500 transition-colors" id="usdt-erc20-copy-btn">
                                             📋 Copy
                                         </button>
@@ -395,7 +395,7 @@
                                     <div class="bg-gray-900/50 rounded-lg p-4">
                                         <div class="text-center">
                                             <div class="w-32 h-32 mx-auto bg-white rounded-lg flex items-center justify-center mb-2">
-                                                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHg9IjY0IiB5PSI2NCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSIjMDAwMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zNWVtIj5VU0RUX0VSQzIwPC90ZXh0Pgo8L3N2Zz4=" alt="QR Code" class="w-full h-full object-contain">
+                                                <img src="{{ asset('images/usdt-erc20.jpg') }}" alt="USDT ERC20 QR Code" class="w-full h-full object-contain">
                                             </div>
                                             <p class="text-xs text-gray-400">Scan QR Code</p>
                                         </div>
@@ -449,7 +449,7 @@
                                 <div>
                                     <label class="block text-sm font-medium text-gray-400 mb-2">Wallet Address</label>
                                     <div class="flex items-center space-x-2">
-                                        <input type="text" readonly value="0x9c1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e" class="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white font-mono text-sm" id="bnb-address">
+                                        <input type="text" readonly value="0x1f7C0Cdb751b1Ff90875d10E35491b3DB365b3Fb" class="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white font-mono text-sm" id="bnb-address">
                                         <button type="button" onclick="copyToClipboard('bnb-address')" class="px-4 py-3 bg-yellow-400 text-black rounded-lg font-medium hover:bg-yellow-500 transition-colors" id="bnb-copy-btn">
                                             📋 Copy
                                         </button>
@@ -460,7 +460,7 @@
                                     <div class="bg-gray-900/50 rounded-lg p-4">
                                         <div class="text-center">
                                             <div class="w-32 h-32 mx-auto bg-white rounded-lg flex items-center justify-center mb-2">
-                                                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHg9IjY0IiB5PSI2NCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSIjMDAwMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zNWVtIj5CTkJfQkVQMjA8L3RleHQ+Cjwvc3ZnPg==" alt="QR Code" class="w-full h-full object-contain">
+                                                <img src="{{ asset('images/bnb.jpg') }}" alt="BNB QR Code" class="w-full h-full object-contain">
                                             </div>
                                             <p class="text-xs text-gray-400">Scan QR Code</p>
                                         </div>
@@ -621,8 +621,9 @@
 
 <script>
 let selectedAmount = 0;
-let selectedNetwork = null;
-let selectedWalletAddress = null;
+let selectedNetwork = 'btc';
+let selectedWalletAddress = '';
+let addressCopied = false;
 
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
@@ -712,6 +713,7 @@ function resetAmount() {
     selectedAmount = 0;
     selectedNetwork = null;
     selectedWalletAddress = null;
+    addressCopied = false;
     document.getElementById('deposit-amount').value = '';
     document.getElementById('deposit-amount-hidden').value = '';
     document.getElementById('deposit-network-hidden').value = '';
@@ -765,9 +767,11 @@ function selectNetwork(network) {
 
     const submitButton = document.getElementById('confirm-deposit-btn');
     if (submitButton) {
-        submitButton.disabled = false;
-        submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+        submitButton.disabled = true;
+        submitButton.classList.add('opacity-50', 'cursor-not-allowed');
     }
+    
+    addressCopied = false;
 }
 
 function copyToClipboard(elementId) {
@@ -780,6 +784,13 @@ function copyToClipboard(elementId) {
         button.classList.remove('bg-yellow-400', 'hover:bg-yellow-500');
         button.classList.add('bg-green-500', 'hover:bg-green-600');
 
+        addressCopied = true;
+        const submitButton = document.getElementById('confirm-deposit-btn');
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+
         setTimeout(() => {
             button.innerHTML = originalText;
             button.classList.remove('bg-green-500', 'hover:bg-green-600');
@@ -789,6 +800,13 @@ function copyToClipboard(elementId) {
         console.error('Failed to copy: ', err);
         element.select();
         document.execCommand('copy');
+        
+        addressCopied = true;
+        const submitButton = document.getElementById('confirm-deposit-btn');
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
     });
 }
 
@@ -807,6 +825,7 @@ function submitDepositRequest() {
 
 document.addEventListener('DOMContentLoaded', function() {
     validateAmount(document.getElementById('deposit-amount'));
+    selectNetwork('btc');
 });
 </script>
 
