@@ -94,7 +94,7 @@
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
                 <div class="flex-1">
                     <p class="text-sm sm:text-base font-semibold opacity-80 uppercase tracking-wider">💼 Available Balance</p>
-                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black mt-2 drop-shadow-lg">
+                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black mt-2 text-black tracking-tight">
                         ${{ number_format(Auth::user()->wallet_balance ?? 0, 2) }}
                     </h2>
                     <p class="text-xs sm:text-sm mt-2 opacity-70 font-medium">Ready to invest</p>
