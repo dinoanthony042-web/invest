@@ -99,9 +99,15 @@
                     </h2>
                     <p class="text-sm sm:text-base mt-3 text-yellow-200 font-medium">Ready to invest instantly</p>
                 </div>
-                <a href="{{ route('deposit') }}" class="w-full sm:w-auto px-7 sm:px-8 py-4 bg-yellow-400 text-black rounded-2xl font-bold text-base sm:text-lg hover:bg-yellow-300 transition-all transform hover:scale-105 shadow-xl border border-yellow-300">
-                    💰 Deposit More Funds
-                </a>
+                <a href="{{ route('deposit') }}" 
+                    class="w-full sm:w-auto px-7 sm:px-8 py-4 
+                            bg-black text-yellow-400 
+                            rounded-2xl font-bold text-base sm:text-lg 
+                            hover:bg-yellow-400 hover:text-black 
+                            transition-all transform hover:scale-105 
+                            shadow-xl border border-yellow-400">
+                        💰 Deposit More Funds
+                 </a>
             </div>
         </div>
 
