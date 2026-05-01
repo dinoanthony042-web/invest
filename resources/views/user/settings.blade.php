@@ -152,10 +152,7 @@
                                     <p class="text-gray-400">Email Verified</p>
                                     <p class="text-white font-medium">{{ method_exists($user, 'hasVerifiedEmail') && $user->hasVerifiedEmail() ? 'Yes' : 'No' }}</p>
                                 </div>
-                                <div>
-                                    <p class="text-gray-400">Two-factor Authentication</p>
-                                    <p class="text-white font-medium">Not Enabled</p>
-                                </div>
+                                
                             </div>
 
                             <form action="{{ route('settings.password.update') }}" method="POST" class="space-y-4">
