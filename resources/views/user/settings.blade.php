@@ -20,6 +20,12 @@
                 <a href="{{ route('investment.plans') }}" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
                     <span class="mr-3">📈</span> Invest
                 </a>
+                <a href="{{ route('transactions') }}" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
+                    <span class="mr-3">🧾</span> Transactions
+                </a>
+                <a href="{{ route('withdrawals') }}" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
+                    <span class="mr-3">💸</span> Withdrawals
+                </a>
                 <a href="{{ route('analytics') }}" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
                     <span class="mr-3">📊</span> Analytics
                 </a>
@@ -81,8 +87,28 @@
                             <p class="text-white font-semibold">{{ $user->email }}</p>
                         </div>
                         <div>
-                            <p class="text-gray-400">Role</p>
-                            <p class="text-white font-semibold">{{ ucfirst($user->role ?? 'user') }}</p>
+                            <p class="text-gray-400">Phone Number</p>
+                            <p class="text-white font-semibold">{{ $user->phone_number ?? 'Not set' }}</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400">Country</p>
+                            <p class="text-white font-semibold">{{ $user->country ?? 'Not set' }}</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400">State</p>
+                            <p class="text-white font-semibold">{{ $user->state ?? 'Not set' }}</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400">City</p>
+                            <p class="text-white font-semibold">{{ $user->city ?? 'Not set' }}</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400">Postal Code</p>
+                            <p class="text-white font-semibold">{{ $user->postal_code ?? 'Not set' }}</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400">Address</p>
+                            <p class="text-white font-semibold">{{ $user->address ?? 'Not set' }}</p>
                         </div>
                         <div>
                             <p class="text-gray-400">Wallet Balance</p>
@@ -97,7 +123,7 @@
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <div class="bg-gray-900 rounded-3xl p-5 border border-yellow-400/10">
                             <h3 class="text-sm uppercase tracking-wide text-yellow-400 font-semibold mb-3">Personal Information</h3>
-                            <p class="text-gray-400 text-sm mb-4">Review your profile name and email address.</p>
+                            <p class="text-gray-400 text-sm mb-4">Review your profile details and contact information.</p>
                             <div class="space-y-3 text-gray-300 text-sm">
                                 <div>
                                     <p class="text-gray-400">Name</p>
@@ -107,13 +133,21 @@
                                     <p class="text-gray-400">Email</p>
                                     <p class="text-white font-medium">{{ $user->email }}</p>
                                 </div>
+                                <div>
+                                    <p class="text-gray-400">Phone</p>
+                                    <p class="text-white font-medium">{{ $user->phone_number ?? 'Not set' }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400">Country</p>
+                                    <p class="text-white font-medium">{{ $user->country ?? 'Not set' }}</p>
+                                </div>
                             </div>
                         </div>
 
                         <div class="bg-gray-900 rounded-3xl p-5 border border-yellow-400/10">
                             <h3 class="text-sm uppercase tracking-wide text-yellow-400 font-semibold mb-3">Security</h3>
-                            <p class="text-gray-400 text-sm mb-4">Keep your account safe and secure.</p>
-                            <div class="space-y-3 text-gray-300 text-sm">
+                            <p class="text-gray-400 text-sm mb-4">Change your password and verify account status.</p>
+                            <div class="space-y-3 text-gray-300 text-sm mb-6">
                                 <div>
                                     <p class="text-gray-400">Email Verified</p>
                                     <p class="text-white font-medium">{{ method_exists($user, 'hasVerifiedEmail') && $user->hasVerifiedEmail() ? 'Yes' : 'No' }}</p>
@@ -123,21 +157,39 @@
                                     <p class="text-white font-medium">Not Enabled</p>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="mt-8 bg-gray-900 rounded-3xl p-6 border border-yellow-400/10">
-                        <h3 class="text-base font-semibold text-white mb-4">Notification Preferences</h3>
-                        <p class="text-gray-400 mb-4">Control the types of alerts you receive about your account and investments.</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div class="rounded-3xl bg-gray-800 p-4 border border-yellow-400/10">
-                                <p class="text-sm text-yellow-400 font-semibold mb-2">Deposit Alerts</p>
-                                <p class="text-gray-300 text-sm">Get notified whenever a deposit is approved or pending.</p>
-                            </div>
-                            <div class="rounded-3xl bg-gray-800 p-4 border border-yellow-400/10">
-                                <p class="text-sm text-yellow-400 font-semibold mb-2">Investment Updates</p>
-                                <p class="text-gray-300 text-sm">Receive important updates about your active plans.</p>
-                            </div>
+                            <form action="{{ route('settings.password.update') }}" method="POST" class="space-y-4">
+                                @csrf
+
+                                @if(session('success'))
+                                    <div class="rounded-3xl bg-green-500/10 border border-green-500/20 p-4 text-green-200 text-sm">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+
+                                <div>
+                                    <label for="current_password" class="block text-sm font-medium text-gray-300">Current Password</label>
+                                    <input id="current_password" name="current_password" type="password" class="mt-2 w-full rounded-2xl border border-gray-700 bg-gray-900 px-4 py-3 text-white focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20 @error('current_password') border-red-400 @enderror">
+                                    @error('current_password')
+                                    <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label for="password" class="block text-sm font-medium text-gray-300">New Password</label>
+                                    <input id="password" name="password" type="password" class="mt-2 w-full rounded-2xl border border-gray-700 bg-gray-900 px-4 py-3 text-white focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20 @error('password') border-red-400 @enderror">
+                                    @error('password')
+                                    <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label for="password_confirmation" class="block text-sm font-medium text-gray-300">Confirm New Password</label>
+                                    <input id="password_confirmation" name="password_confirmation" type="password" class="mt-2 w-full rounded-2xl border border-gray-700 bg-gray-900 px-4 py-3 text-white focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20">
+                                </div>
+
+                                <button type="submit" class="w-full rounded-3xl bg-yellow-400 px-5 py-3 font-semibold text-black hover:bg-yellow-500 transition">Update Password</button>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -17,6 +17,12 @@
                 <a href="{{ route('investment.plans') }}" class="flex items-center px-4 py-3 text-sm font-medium text-white bg-yellow-400/20 rounded-lg border border-yellow-400/30">
                     <span class="mr-3">📈</span> Invest
                 </a>
+                <a href="{{ route('transactions') }}" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
+                    <span class="mr-3">🧾</span> Transactions
+                </a>
+                <a href="{{ route('withdrawals') }}" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
+                    <span class="mr-3">💸</span> Withdrawals
+                </a>
                 <a href="{{ route('deposit') }}" class="flex items-center px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors">
                     <span class="mr-3">💰</span> Deposits
                 </a>
@@ -173,13 +179,9 @@
     <footer class="bg-black/50 backdrop-blur-lg border-t border-yellow-400/20 mt-12 sm:mt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
             <div class="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
-                <div class="flex items-center space-x-3 sm:space-x-4">
-                    <div class="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span class="text-black font-bold text-xs sm:text-sm">V</span>
-                    </div>
-                    <div class="text-center sm:text-left">
-                        <p class="text-xs sm:text-sm text-gray-400">© 2026 BridgeField Capital Group. All rights reserved.</p>
-                        <p class="text-xs text-gray-500">Professional Crypto Investment Platform</p>
+                <div class="text-center sm:text-left">
+                    <p class="text-xs sm:text-sm text-gray-400">© 2026 BridgeField Capital Group. All rights reserved.</p>
+                    <p class="text-xs text-gray-500">Professional Crypto Investment Platform</p>
                     </div>
                 </div>
 

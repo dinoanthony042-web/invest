@@ -41,6 +41,12 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'phone_number' => 'nullable|string|max:30',
+            'country' => 'nullable|string|max:100',
+            'state' => 'nullable|string|max:100',
+            'city' => 'nullable|string|max:100',
+            'postal_code' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:500',
         ]);
 
         $user = User::create([
@@ -48,6 +54,12 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'user', // default role
+            'phone_number' => $request->phone_number,
+            'country' => $request->country,
+            'state' => $request->state,
+            'city' => $request->city,
+            'postal_code' => $request->postal_code,
+            'address' => $request->address,
         ]);
 
         Auth::login($user);

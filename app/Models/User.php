@@ -23,6 +23,12 @@ class User extends Authenticatable
         'password',
         'role',
         'wallet_balance',
+        'phone_number',
+        'country',
+        'state',
+        'city',
+        'postal_code',
+        'address',
     ];
 
     /**
@@ -62,6 +68,11 @@ class User extends Authenticatable
     public function userInvestments()
     {
         return $this->hasMany(UserInvestment::class);
+    }
+
+    public function withdrawalRequests()
+    {
+        return $this->hasMany(WithdrawalRequest::class);
     }
 
     /**

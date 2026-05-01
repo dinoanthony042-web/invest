@@ -96,7 +96,11 @@ Route::post('/email/verification-notification', function (Request $request) {
 Route::middleware(['auth', 'verified.users'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/analytics', [DashboardController::class, 'analytics'])->name('analytics');
+    Route::get('/transactions', [DashboardController::class, 'transactions'])->name('transactions');
+    Route::get('/withdrawals', [DashboardController::class, 'withdrawals'])->name('withdrawals');
+    Route::post('/withdrawals/{investment}/request', [DashboardController::class, 'requestWithdrawal'])->name('withdrawals.request');
     Route::get('/settings', [DashboardController::class, 'settings'])->name('settings');
+    Route::post('/settings/password', [DashboardController::class, 'updatePassword'])->name('settings.password.update');
     Route::get('/deposit', [DashboardController::class, 'deposit'])->name('deposit');
     Route::post('/deposit/request', [DashboardController::class, 'submitDepositRequest'])->name('deposit.submit');
     Route::get('/deposit/confirmation/{deposit}', [DashboardController::class, 'depositConfirmation'])->name('deposit.confirmation');

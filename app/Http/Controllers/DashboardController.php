@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Http;
 use App\Models\Investment;
@@ -11,6 +12,7 @@ use App\Models\CryptoCurrency;
 use App\Models\DepositRequest;
 use App\Models\InvestmentPlan;
 use App\Models\UserInvestment;
+use App\Models\WithdrawalRequest;
 
 class DashboardController extends Controller
 {
@@ -297,6 +299,84 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         return view('user.settings', compact('user'));
+    }
+
+    public function transactions()
+    {
+        $user = Auth::user();
+        $deposits = $user->depositRequests()->latest()->get();
+        $investments = $user->userInvestments()->with('investmentPlan')->latest()->get();
+        $withdrawals = $user->withdrawalRequests()->with('investment.investmentPlan')->latest()->get();
+
+        return view('user.transactions', compact('deposits', 'investments', 'withdrawals'));
+    }
+
+    public function withdrawals()
+    {
+        $user = Auth::user();
+        $maturedInvestments = $user->userInvestments()->with('investmentPlan')->where('status', 'active')->get()->filter(function ($investment) {
+            return $investment->created_at->addDays($investment->investmentPlan->duration_days)->isPast();
+        });
+
+        $activeRequests = $user->withdrawalRequests()->with('investment.investmentPlan')->latest()->get();
+
+        return view('user.withdrawals', compact('maturedInvestments', 'activeRequests'));
+    }
+
+    public function requestWithdrawal(Request $request, UserInvestment $investment)
+    {
+        $user = Auth::user();
+
+        if ($investment->user_id !== $user->id) {
+            abort(403);
+        }
+
+        if ($investment->status !== 'active') {
+            return back()->with('error', 'This investment is not available for withdrawal.');
+        }
+
+        if ($investment->created_at->addDays($investment->investmentPlan->duration_days)->isFuture()) {
+            return back()->with('error', 'This investment has not yet reached maturity.');
+        }
+
+        $existingRequest = WithdrawalRequest::where('user_investment_id', $investment->id)
+            ->whereIn('status', ['pending', 'approved'])
+            ->first();
+
+        if ($existingRequest) {
+            return back()->with('error', 'A withdrawal request for this investment is already in progress.');
+        }
+
+        $amount = $investment->amount + $investment->expected_return;
+
+        WithdrawalRequest::create([
+            'user_id' => $user->id,
+            'user_investment_id' => $investment->id,
+            'amount' => $amount,
+            'status' => 'pending',
+        ]);
+
+        $investment->update(['status' => 'withdrawal_requested']);
+
+        return back()->with('withdrawal_success', 'Withdrawal request submitted successfully.');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'current_password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        if (! Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'Current password is incorrect.']);
+        }
+
+        $user->update(['password' => Hash::make($request->password)]);
+
+        return back()->with('success', 'Password has been updated successfully.');
     }
 
     public function buyPlan(Request $request, InvestmentPlan $plan)
