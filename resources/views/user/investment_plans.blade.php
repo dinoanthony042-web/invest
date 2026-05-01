@@ -94,12 +94,12 @@
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
                 <div class="flex-1">
                     <p class="text-sm sm:text-base font-semibold uppercase tracking-[0.24em] text-yellow-300">💼 AVAILABLE BALANCE</p>
-                    <h2 class="text-5xl sm:text-6xl lg:text-7xl font-black mt-3 leading-none text-white">
+                    <h2 class="text-4xl sm:text-4xl lg:text-5xl font-black mt-3 leading-none text-white">
                         ${{ number_format(Auth::user()->wallet_balance ?? 0, 2) }}
                     </h2>
                     <p class="text-sm sm:text-base mt-3 text-yellow-200 font-medium">Ready to invest instantly</p>
                 </div>
-                <a href="{{ route('deposit') }}" class="w-full sm:w-auto px-7 sm:px-8 py-4 bg-yellow-400 text-black rounded-2xl font-bold text-base sm:text-lg hover:bg-yellow-300 transition-all transform hover:scale-105 shadow-xl border border-yellow-300">
+                <a href="{{ route('deposit') }}" class="w-full sm:w-auto px-7 sm:px-8 py-4 bg-yellow-500 text-black rounded-2xl font-extrabold uppercase text-base sm:text-lg hover:bg-yellow-400 transition-all transform hover:scale-105 shadow-[0_18px_40px_rgba(245,158,11,0.35)] ring-1 ring-yellow-300 border border-yellow-300">
                     💰 Deposit More Funds
                 </a>
             </div>
