@@ -48,7 +48,7 @@
     <div id="sidebar-overlay" class="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden hidden" onclick="closeSidebar()"></div>
 
     <!-- Main Content -->
-    <div class="lg:pl-64">
+    <div class="lg:ml-64">
         <!-- Top Header -->
         <header class="bg-black/50 backdrop-blur-lg border-b border-yellow-400/20 sticky top-0 z-30">
             <div class="px-4 py-4">
@@ -93,54 +93,42 @@
             <p class="text-gray-400 text-lg">Add funds to your BridgeField Capital Group account securely</p>
             </div>
 
-            <div id="deposit-toast" class="fixed inset-x-4 top-6 z-50 mx-auto max-w-3xl rounded-3xl border border-gray-700 bg-gray-900/95 p-4 shadow-2xl opacity-0 pointer-events-none transition-opacity duration-300 ease-out lg:left-auto lg:right-6 xl:max-w-md">
-                <div id="deposit-toast-inner" class="flex items-start gap-4 rounded-3xl p-4">
-                    <div id="deposit-toast-icon" class="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500 text-black">
-                        ✓
-                    </div>
-                    <div class="flex-1">
-                        <p id="deposit-toast-title" class="font-semibold text-white"></p>
-                        <p id="deposit-toast-message" class="mt-1 text-sm text-gray-300"></p>
-                    </div>
-                    <button type="button" onclick="hideDepositToast()" class="text-gray-400 hover:text-white">✕</button>
-                </div>
-            </div>
+            <div class="bg-gray-800 rounded-2xl border border-yellow-400/20 p-6 mb-8">
+                <h2 class="text-2xl font-bold text-yellow-400 mb-6">Enter Deposit Amount</h2>
 
-            <div class="grid gap-6">
-                <div>
-                    <label for="deposit-amount" class="block text-sm font-medium text-gray-400 mb-2">Deposit Amount (USD)</label>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto] gap-6 items-end">
-                    <div class="relative">
-                        <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 font-medium">$</span>
-                        <input type="number" id="deposit-amount" min="10" step="0.01" placeholder="100.00" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-8 py-4 text-white font-mono text-lg focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all" oninput="validateAmount(this)">
-                    </div>
-
-                    <button onclick="setDepositAmount()" disabled class="w-full lg:w-auto bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-semibold py-4 px-6 rounded-lg hover:from-yellow-500 hover:to-orange-600 transition-all transform hover:scale-105 shadow-lg opacity-50 cursor-not-allowed">
-                        Continue to Network Selection
-                    </button>
-                </div>
-
-                <p class="text-xs text-gray-400">Minimum deposit: $10.00 USD</p>
-            </div>
-
-            <div id="amount-display" class="mt-6 p-4 bg-yellow-400/10 border border-yellow-400/20 rounded-lg hidden">
-                <div class="flex items-center justify-between">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <span class="text-sm text-gray-400">Selected Amount:</span>
-                        <span id="selected-amount" class="text-xl font-bold text-yellow-400 ml-2">$0.00</span>
+                        <label for="deposit-amount" class="block text-sm font-medium text-gray-400 mb-2">Deposit Amount (USD)</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 font-medium">$</span>
+                            <input type="number" id="deposit-amount" min="10" step="0.01" placeholder="100.00" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-8 py-4 text-white font-mono text-lg focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all" oninput="validateAmount(this)">
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2">Minimum deposit: $10.00 USD</p>
                     </div>
-                    <button onclick="resetAmount()" class="text-sm text-gray-400 hover:text-white transition-colors">
-                        Change Amount
-                    </button>
+
+                    <div class="flex items-end">
+                        <button onclick="setDepositAmount()" disabled class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-semibold py-4 px-6 rounded-lg hover:from-yellow-500 hover:to-orange-600 transition-all transform hover:scale-105 shadow-lg opacity-50 cursor-not-allowed">
+                            Continue to Network Selection
+                        </button>
+                    </div>
+                </div>
+
+                <div id="amount-display" class="mt-6 p-4 bg-yellow-400/10 border border-yellow-400/20 rounded-lg hidden">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-sm text-gray-400">Selected Amount:</span>
+                            <span id="selected-amount" class="text-xl font-bold text-yellow-400 ml-2">$0.00</span>
+                        </div>
+                        <button onclick="resetAmount()" class="text-sm text-gray-400 hover:text-white transition-colors">
+                            Change Amount
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div id="network-selection" class="grid grid-cols-1 xl:grid-cols-[2fr_1fr] gap-8 hidden">
+        <div id="network-selection" class="grid grid-cols-1 lg:grid-cols-3 gap-8 hidden">
 
-            <form id="deposit-request-form" method="POST" action="{{ route('deposit.submit') }}" class="xl:col-span-2 space-y-6">
+            <form id="deposit-request-form" method="POST" action="{{ route('deposit.submit') }}" class="lg:col-span-2 space-y-6">
                 @csrf
                 <input type="hidden" id="deposit-amount-hidden" name="amount" value="">
                 <input type="hidden" id="deposit-network-hidden" name="network" value="">
@@ -834,53 +822,9 @@ function submitDepositRequest() {
     document.getElementById('deposit-request-form').submit();
 }
 
-function showDepositToast(type, title, message) {
-    const toast = document.getElementById('deposit-toast');
-    const toastTitle = document.getElementById('deposit-toast-title');
-    const toastMessage = document.getElementById('deposit-toast-message');
-    const toastIcon = document.getElementById('deposit-toast-icon');
-
-    if (!toast || !toastTitle || !toastMessage || !toastIcon) {
-        return;
-    }
-
-    toastTitle.textContent = title;
-    toastMessage.textContent = message;
-
-    if (type === 'success') {
-        toastIcon.textContent = '✓';
-        toastIcon.className = 'flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500 text-black';
-    } else {
-        toastIcon.textContent = '!';
-        toastIcon.className = 'flex h-10 w-10 items-center justify-center rounded-2xl bg-red-500 text-white';
-    }
-
-    toast.classList.remove('opacity-0', 'pointer-events-none');
-    toast.classList.add('opacity-100');
-
-    window.setTimeout(hideDepositToast, 6000);
-}
-
-function hideDepositToast() {
-    const toast = document.getElementById('deposit-toast');
-    if (!toast) {
-        return;
-    }
-
-    toast.classList.add('opacity-0');
-    toast.classList.remove('opacity-100');
-    toast.classList.add('pointer-events-none');
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     validateAmount(document.getElementById('deposit-amount'));
     selectNetwork('btc');
-
-    @if(session('success'))
-        showDepositToast('success', 'Deposit Submitted', {!! json_encode(session('success')) !!});
-    @elseif(session('error'))
-        showDepositToast('error', 'Deposit Error', {!! json_encode(session('error')) !!});
-    @endif
 });
 </script>
 

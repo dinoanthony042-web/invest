@@ -236,7 +236,7 @@ class DashboardController extends Controller
         // Send pending deposit email
         \App\Jobs\SendDepositPendingEmail::dispatch($deposit);
 
-        return redirect()->route('deposit')->with('success', 'Deposit request submitted successfully. Your request is pending confirmation.');
+        return redirect()->route('deposit.confirmation', ['deposit' => $deposit->id]);
     }
 
     public function depositConfirmation(DepositRequest $deposit)
