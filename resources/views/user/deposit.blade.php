@@ -91,12 +91,23 @@
                 Deposit Funds
             </h1>
             <p class="text-gray-400 text-lg">Add funds to your BridgeField Capital Group account securely</p>
+        </div>
+
+        <div id="deposit-toast" class="fixed right-4 top-24 z-50 hidden max-w-sm rounded-3xl border border-gray-700 bg-gray-900/95 p-4 shadow-2xl opacity-0 pointer-events-none transition-all duration-300">
+            <div class="flex items-start gap-4">
+                <div id="deposit-toast-icon" class="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500 text-black">✓</div>
+                <div class="flex-1">
+                    <p id="deposit-toast-title" class="font-semibold text-white">Success</p>
+                    <p id="deposit-toast-message" class="mt-1 text-sm text-gray-300"></p>
+                </div>
+                <button type="button" onclick="hideDepositToast()" class="text-gray-400 hover:text-white">✕</button>
             </div>
+        </div>
 
-            <div class="bg-gray-800 rounded-2xl border border-yellow-400/20 p-6 mb-8">
-                <h2 class="text-2xl font-bold text-yellow-400 mb-6">Enter Deposit Amount</h2>
+        <div class="bg-gray-800 rounded-2xl border border-yellow-400/20 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-yellow-400 mb-6">Enter Deposit Amount</h2>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-[1.5fr_auto] gap-6">
                     <div>
                         <label for="deposit-amount" class="block text-sm font-medium text-gray-400 mb-2">Deposit Amount (USD)</label>
                         <div class="relative">
@@ -106,8 +117,8 @@
                         <p class="text-xs text-gray-400 mt-2">Minimum deposit: $10.00 USD</p>
                     </div>
 
-                    <div class="flex items-end">
-                        <button onclick="setDepositAmount()" disabled class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-semibold py-4 px-6 rounded-lg hover:from-yellow-500 hover:to-orange-600 transition-all transform hover:scale-105 shadow-lg opacity-50 cursor-not-allowed">
+                    <div class="flex items-end justify-end">
+                        <button onclick="setDepositAmount()" disabled class="w-full lg:w-auto bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-semibold py-4 px-6 rounded-lg hover:from-yellow-500 hover:to-orange-600 transition-all transform hover:scale-105 shadow-lg opacity-50 cursor-not-allowed">
                             Continue to Network Selection
                         </button>
                     </div>
@@ -822,9 +833,55 @@ function submitDepositRequest() {
     document.getElementById('deposit-request-form').submit();
 }
 
+function showDepositToast(type, title, message) {
+    const toast = document.getElementById('deposit-toast');
+    const toastTitle = document.getElementById('deposit-toast-title');
+    const toastMessage = document.getElementById('deposit-toast-message');
+    const toastIcon = document.getElementById('deposit-toast-icon');
+
+    if (!toast || !toastTitle || !toastMessage || !toastIcon) {
+        return;
+    }
+
+    toastTitle.textContent = title;
+    toastMessage.textContent = message;
+
+    if (type === 'success') {
+        toastIcon.textContent = '✓';
+        toastIcon.className = 'flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500 text-black';
+    } else {
+        toastIcon.textContent = '!';
+        toastIcon.className = 'flex h-10 w-10 items-center justify-center rounded-2xl bg-red-500 text-white';
+    }
+
+    toast.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
+    toast.classList.add('opacity-100');
+
+    window.setTimeout(hideDepositToast, 6000);
+}
+
+function hideDepositToast() {
+    const toast = document.getElementById('deposit-toast');
+    if (!toast) {
+        return;
+    }
+
+    toast.classList.add('opacity-0');
+    toast.classList.remove('opacity-100');
+    toast.classList.add('pointer-events-none');
+
+    window.setTimeout(() => {
+        toast.classList.add('hidden');
+    }, 300);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     validateAmount(document.getElementById('deposit-amount'));
     selectNetwork('btc');
+
+    @if(session('success'))
+        showDepositToast('success', 'Deposit Submitted', {!! json_encode(session('success')) !!});
+    @endif
 });
 </script>
 
