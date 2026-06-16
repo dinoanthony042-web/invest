@@ -97,21 +97,23 @@
         <div class="bg-gray-800 rounded-2xl border border-yellow-400/20 p-6 mb-8">
             <h2 class="text-2xl font-bold text-yellow-400 mb-6">Enter Deposit Amount</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid gap-6">
                 <div>
                     <label for="deposit-amount" class="block text-sm font-medium text-gray-400 mb-2">Deposit Amount (USD)</label>
-                    <div class="relative">
-                        <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 font-medium">$</span>
-                    <input type="number" id="deposit-amount" min="10" step="0.01" placeholder="100.00" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-8 py-4 text-white font-mono text-lg focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all" oninput="validateAmount(this)">
-                    </div>
-                    <p class="text-xs text-gray-400 mt-2">Minimum deposit: $10.00 USD</p>
                 </div>
 
-                <div class="flex items-end">
-                    <button onclick="setDepositAmount()" disabled class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-semibold py-4 px-6 rounded-lg hover:from-yellow-500 hover:to-orange-600 transition-all transform hover:scale-105 shadow-lg opacity-50 cursor-not-allowed">
+                <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto] gap-6 items-end">
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 font-medium">$</span>
+                        <input type="number" id="deposit-amount" min="10" step="0.01" placeholder="100.00" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-8 py-4 text-white font-mono text-lg focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/20 transition-all" oninput="validateAmount(this)">
+                    </div>
+
+                    <button onclick="setDepositAmount()" disabled class="w-full lg:w-auto bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-semibold py-4 px-6 rounded-lg hover:from-yellow-500 hover:to-orange-600 transition-all transform hover:scale-105 shadow-lg opacity-50 cursor-not-allowed">
                         Continue to Network Selection
                     </button>
                 </div>
+
+                <p class="text-xs text-gray-400">Minimum deposit: $10.00 USD</p>
             </div>
 
             <div id="amount-display" class="mt-6 p-4 bg-yellow-400/10 border border-yellow-400/20 rounded-lg hidden">
