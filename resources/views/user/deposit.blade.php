@@ -48,7 +48,7 @@
     <div id="sidebar-overlay" class="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden hidden" onclick="closeSidebar()"></div>
 
     <!-- Main Content -->
-    <div class="lg:ml-64 lg:w-[calc(100%-16rem)] xl:w-[calc(100%-16rem)]">
+    <div class="lg:pl-64">
         <!-- Top Header -->
         <header class="bg-black/50 backdrop-blur-lg border-b border-yellow-400/20 sticky top-0 z-30">
             <div class="px-4 py-4">
