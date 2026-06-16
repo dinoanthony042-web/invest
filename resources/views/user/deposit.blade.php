@@ -91,11 +91,19 @@
                 Deposit Funds
             </h1>
             <p class="text-gray-400 text-lg">Add funds to your BridgeField Capital Group account securely</p>
-        </div>
 
-        <!-- DEPOSIT AMOUNT INPUT -->
-        <div class="bg-gray-800 rounded-2xl border border-yellow-400/20 p-6 mb-8">
-            <h2 class="text-2xl font-bold text-yellow-400 mb-6">Enter Deposit Amount</h2>
+                @if(session('success'))
+                    <div class="mt-6 rounded-3xl border border-emerald-400/20 bg-emerald-500/10 p-4 text-emerald-100">
+                        <p class="font-medium">Success</p>
+                        <p class="mt-2 text-sm text-emerald-100">{{ session('success') }}</p>
+                    </div>
+                @endif
+                @if(session('error'))
+                    <div class="mt-6 rounded-3xl border border-red-400/20 bg-red-500/10 p-4 text-red-100">
+                        <p class="font-medium">Error</p>
+                        <p class="mt-2 text-sm text-red-100">{{ session('error') }}</p>
+                    </div>
+                @endif
 
             <div class="grid gap-6">
                 <div>
