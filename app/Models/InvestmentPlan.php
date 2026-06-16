@@ -22,6 +22,7 @@ class InvestmentPlan extends Model
     protected $casts = [
         'price' => 'decimal:2',
         'roi_percentage' => 'decimal:2',
+        'duration_months' => 'integer',
         'duration_days' => 'integer',
         'is_active' => 'boolean',
     ];
@@ -29,10 +30,10 @@ class InvestmentPlan extends Model
     public function getDurationDaysAttribute($value)
     {
         if ($value !== null && $value > 0) {
-            return $value;
+            return (int) $value;
         }
 
-        return $this->duration_months ? $this->duration_months * 30 : 0;
+        return $this->duration_months ? (int) $this->duration_months * 30 : 0;
     }
 
     public function getDurationTextAttribute()
