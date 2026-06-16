@@ -93,14 +93,14 @@
             <p class="text-gray-400 text-lg">Add funds to your BridgeField Capital Group account securely</p>
         </div>
 
-        <div id="deposit-toast" class="fixed right-4 top-24 z-50 hidden max-w-sm rounded-3xl border border-gray-700 bg-gray-900/95 p-4 shadow-2xl opacity-0 pointer-events-none transition-all duration-300">
+        <div id="deposit-toast" class="fixed right-4 top-24 z-50 hidden max-w-sm rounded-3xl border border-emerald-500 bg-emerald-950/90 p-4 shadow-2xl opacity-0 pointer-events-none transition-all duration-300">
             <div class="flex items-start gap-4">
                 <div id="deposit-toast-icon" class="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500 text-black">✓</div>
                 <div class="flex-1">
                     <p id="deposit-toast-title" class="font-semibold text-white">Success</p>
-                    <p id="deposit-toast-message" class="mt-1 text-sm text-gray-300"></p>
+                    <p id="deposit-toast-message" class="mt-1 text-sm text-emerald-200"></p>
                 </div>
-                <button type="button" onclick="hideDepositToast()" class="text-gray-400 hover:text-white">✕</button>
+                <button type="button" onclick="hideDepositToast()" class="text-emerald-200 hover:text-white">✕</button>
             </div>
         </div>
 
