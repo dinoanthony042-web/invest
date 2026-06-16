@@ -93,7 +93,7 @@
             <p class="text-gray-400 text-lg">Add funds to your BridgeField Capital Group account securely</p>
             </div>
 
-            <div id="deposit-toast" class="fixed inset-x-4 top-6 z-50 mx-auto max-w-3xl rounded-3xl border border-gray-700 bg-gray-900/95 p-4 shadow-2xl opacity-0 pointer-events-none transition-opacity duration-300 ease-out">
+            <div id="deposit-toast" class="fixed inset-x-4 top-6 z-50 mx-auto max-w-3xl rounded-3xl border border-gray-700 bg-gray-900/95 p-4 shadow-2xl opacity-0 pointer-events-none transition-opacity duration-300 ease-out lg:left-auto lg:right-6 xl:max-w-md">
                 <div id="deposit-toast-inner" class="flex items-start gap-4 rounded-3xl p-4">
                     <div id="deposit-toast-icon" class="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500 text-black">
                         ✓
@@ -138,9 +138,9 @@
             </div>
         </div>
 
-        <div id="network-selection" class="grid grid-cols-1 lg:grid-cols-3 gap-8 hidden">
+        <div id="network-selection" class="grid grid-cols-1 xl:grid-cols-[2fr_1fr] gap-8 hidden">
 
-            <form id="deposit-request-form" method="POST" action="{{ route('deposit.submit') }}" class="lg:col-span-2 space-y-6">
+            <form id="deposit-request-form" method="POST" action="{{ route('deposit.submit') }}" class="xl:col-span-2 space-y-6">
                 @csrf
                 <input type="hidden" id="deposit-amount-hidden" name="amount" value="">
                 <input type="hidden" id="deposit-network-hidden" name="network" value="">
