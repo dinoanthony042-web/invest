@@ -91,19 +91,20 @@
                 Deposit Funds
             </h1>
             <p class="text-gray-400 text-lg">Add funds to your BridgeField Capital Group account securely</p>
+            </div>
 
-                @if(session('success'))
-                    <div class="mt-6 rounded-3xl border border-emerald-400/20 bg-emerald-500/10 p-4 text-emerald-100">
-                        <p class="font-medium">Success</p>
-                        <p class="mt-2 text-sm text-emerald-100">{{ session('success') }}</p>
+            <div id="deposit-toast" class="fixed inset-x-4 top-6 z-50 mx-auto max-w-3xl rounded-3xl border border-gray-700 bg-gray-900/95 p-4 shadow-2xl opacity-0 pointer-events-none transition-opacity duration-300 ease-out">
+                <div id="deposit-toast-inner" class="flex items-start gap-4 rounded-3xl p-4">
+                    <div id="deposit-toast-icon" class="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500 text-black">
+                        ✓
                     </div>
-                @endif
-                @if(session('error'))
-                    <div class="mt-6 rounded-3xl border border-red-400/20 bg-red-500/10 p-4 text-red-100">
-                        <p class="font-medium">Error</p>
-                        <p class="mt-2 text-sm text-red-100">{{ session('error') }}</p>
+                    <div class="flex-1">
+                        <p id="deposit-toast-title" class="font-semibold text-white"></p>
+                        <p id="deposit-toast-message" class="mt-1 text-sm text-gray-300"></p>
                     </div>
-                @endif
+                    <button type="button" onclick="hideDepositToast()" class="text-gray-400 hover:text-white">✕</button>
+                </div>
+            </div>
 
             <div class="grid gap-6">
                 <div>
@@ -833,9 +834,53 @@ function submitDepositRequest() {
     document.getElementById('deposit-request-form').submit();
 }
 
+function showDepositToast(type, title, message) {
+    const toast = document.getElementById('deposit-toast');
+    const toastTitle = document.getElementById('deposit-toast-title');
+    const toastMessage = document.getElementById('deposit-toast-message');
+    const toastIcon = document.getElementById('deposit-toast-icon');
+
+    if (!toast || !toastTitle || !toastMessage || !toastIcon) {
+        return;
+    }
+
+    toastTitle.textContent = title;
+    toastMessage.textContent = message;
+
+    if (type === 'success') {
+        toastIcon.textContent = '✓';
+        toastIcon.className = 'flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500 text-black';
+    } else {
+        toastIcon.textContent = '!';
+        toastIcon.className = 'flex h-10 w-10 items-center justify-center rounded-2xl bg-red-500 text-white';
+    }
+
+    toast.classList.remove('opacity-0', 'pointer-events-none');
+    toast.classList.add('opacity-100');
+
+    window.setTimeout(hideDepositToast, 6000);
+}
+
+function hideDepositToast() {
+    const toast = document.getElementById('deposit-toast');
+    if (!toast) {
+        return;
+    }
+
+    toast.classList.add('opacity-0');
+    toast.classList.remove('opacity-100');
+    toast.classList.add('pointer-events-none');
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     validateAmount(document.getElementById('deposit-amount'));
     selectNetwork('btc');
+
+    @if(session('success'))
+        showDepositToast('success', 'Deposit Submitted', {!! json_encode(session('success')) !!});
+    @elseif(session('error'))
+        showDepositToast('error', 'Deposit Error', {!! json_encode(session('error')) !!});
+    @endif
 });
 </script>
 
